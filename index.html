@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tool Jeck – 50+ Free Online Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ===== CSS Variables & Reset ===== */
+:root {
+  --bg-primary: #050510;
+  --bg-secondary: #0a0a1a;
+  --glass-bg: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --glass-hover: rgba(255,255,255,0.08);
+  --text-primary: #f0f0f5;
+  --text-secondary: rgba(240,240,245,0.6);
+  --text-muted: rgba(240,240,245,0.35);
+  --accent-1: #00f0ff;
+  --accent-2: #ff2d75;
+  --accent-3: #7b2dff;
+  --accent-4: #00ff88;
+  --glow-1: 0 0 30px rgba(0,240,255,0.3);
+  --glow-2: 0 0 30px rgba(255,45,117,0.3);
+  --glow-3: 0 0 30px rgba(123,45,255,0.3);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+  --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ===== Animated Background ===== */
+.bg-scene {
+  position: fixed; inset:0; z-index:0; pointer-events:none;
+  background: 
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(123,45,255,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(0,240,255,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,45,117,0.06) 0%, transparent 60%),
+    var(--bg-primary);
+}
+
+.bg-orb {
+  position: fixed; border-radius:50%; filter:blur(80px); pointer-events:none; z-index:0;
+  animation: orbFloat 20s ease-in-out infinite;
+}
+.bg-orb:nth-child(1) { width:400px; height:400px; background:rgba(123,45,255,0.12); top:-100px; left:-100px; }
+.bg-orb:nth-child(2) { width:350px; height:350px; background:rgba(0,240,255,0.08); bottom:-80px; right:-80px; animation-delay:-7s; }
+.bg-orb:nth-child(3) { width:300px; height:300px; background:rgba(255,45,117,0.06); top:40%; left:60%; animation-delay:-14s; }
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  33% { transform: translate(30px,-40px) scale(1.1); }
+  66% { transform: translate(-20px,30px) scale(0.9); }
+}
+
+/* ===== Loader ===== */
+#loader {
+  position:fixed; inset:0; z-index:9999; background:var(--bg-primary);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+#loader.hidden { opacity:0; visibility:hidden; }
+.loader-ring {
+  width:60px; height:60px; border:3px solid var(--glass-border);
+  border-top-color: var(--accent-1); border-radius:50%;
+  animation: spin 0.8s linear infinite;
+}
+.loader-text { margin-top:16px; font-size:14px; color:var(--text-secondary); letter-spacing:2px; text-transform:uppercase; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background:var(--accent-3); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:var(--accent-1); }
+
+/* ===== Utility ===== */
+.container { max-width:1280px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.btn {
+  display:inline-flex; align-items:center; gap:8px; padding:12px 28px;
+  border:none; border-radius:var(--radius-sm); font-family:inherit;
+  font-size:15px; font-weight:600; cursor:pointer; transition:var(--transition);
+  text-decoration:none; position:relative; overflow:hidden;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+  color:#fff; box-shadow: var(--glow-1);
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow: 0 0 40px rgba(0,240,255,0.5); }
+.btn-secondary {
+  background: var(--glass-bg); color:var(--text-primary);
+  border:1px solid var(--glass-border);
+}
+.btn-secondary:hover { background:var(--glass-hover); border-color:var(--accent-1); }
+.btn-sm { padding:8px 18px; font-size:13px; border-radius:var(--radius-xs); }
+.btn-danger { background:linear-gradient(135deg, var(--accent-2), #ff6b3d); color:#fff; }
+.btn-success { background:linear-gradient(135deg, var(--accent-4), #00cc6a); color:#000; }
+
+/* ===== Fade In Animation ===== */
+.fade-in {
+  opacity:0; transform:translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible { opacity:1; transform:translateY(0); }
+
+/* ===== Navigation ===== */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  padding:16px 0; transition:var(--transition);
+}
+nav.scrolled {
+  background: rgba(5,5,16,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+}
+.nav-inner {
+  display:flex; align-items:center; justify-content:space-between;
+}
+.nav-logo {
+  display:flex; align-items:center; gap:10px;
+  font-size:22px; font-weight:800; color:var(--text-primary);
+  text-decoration:none;
+}
+.nav-logo .logo-icon {
+  width:36px; height:36px; border-radius:var(--radius-xs);
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:#fff;
+}
+.nav-links { display:flex; gap:32px; list-style:none; }
+.nav-links a {
+  color:var(--text-secondary); text-decoration:none; font-size:14px;
+  font-weight:500; transition:var(--transition); position:relative;
+}
+.nav-links a:hover { color:var(--accent-1); }
+.nav-links a::after {
+  content:''; position:absolute; bottom:-4px; left:0; width:0;
+  height:2px; background:var(--accent-1); transition:var(--transition);
+}
+.nav-links a:hover::after { width:100%; }
+.nav-toggle { display:none; background:none; border:none; color:var(--text-primary); font-size:22px; cursor:pointer; }
+
+/* ===== Hero ===== */
+.hero {
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  text-align:center; padding:120px 24px 80px;
+}
+.hero-content { max-width:800px; }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px; padding:6px 16px;
+  border-radius:50px; font-size:12px; font-weight:500;
+  background:rgba(0,240,255,0.08); border:1px solid rgba(0,240,255,0.2);
+  color:var(--accent-1); margin-bottom:24px; letter-spacing:0.5px;
+}
+.hero-badge i { font-size:10px; }
+.hero h1 {
+  font-size:clamp(2.5rem, 6vw, 4.5rem); font-weight:900;
+  line-height:1.1; margin-bottom:20px;
+  background: linear-gradient(135deg, #fff 0%, var(--accent-1) 50%, var(--accent-3) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero p {
+  font-size:clamp(1rem,2vw,1.2rem); color:var(--text-secondary);
+  max-width:600px; margin:0 auto 36px; font-weight:300;
+}
+.hero-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+/* ===== Search Bar ===== */
+.search-section { padding:0 24px 80px; }
+.search-bar {
+  max-width:600px; margin:0 auto; position:relative;
+}
+.search-bar input {
+  width:100%; padding:16px 20px 16px 50px;
+  background:var(--glass-bg); border:1px solid var(--glass-border);
+  border-radius:var(--radius); color:var(--text-primary);
+  font-family:inherit; font-size:15px; outline:none;
+  backdrop-filter:blur(20px); transition:var(--transition);
+}
+.search-bar input:focus { border-color:var(--accent-1); box-shadow:var(--glow-1); }
+.search-bar input::placeholder { color:var(--text-muted); }
+.search-bar i {
+  position:absolute; left:18px; top:50%; transform:translateY(-50%);
+  color:var(--text-muted); font-size:16px;
+}
+.search-count {
+  text-align:center; margin-top:12px; font-size:13px; color:var(--text-muted);
+}
+
+/* ===== Category Grid ===== */
+.section-header {
+  text-align:center; margin-bottom:48px;
+}
+.section-header h2 {
+  font-size:clamp(1.8rem,4vw,2.5rem); font-weight:800; margin-bottom:12px;
+}
+.section-header p { color:var(--text-secondary); font-size:15px; }
+.categories-grid {
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));
+  gap:16px; margin-bottom:80px;
+}
+.category-card {
+  padding:24px; border-radius:var(--radius); cursor:pointer;
+  transition:var(--transition); text-align:center;
+}
+.category-card:hover {
+  background:var(--glass-hover); border-color:rgba(0,240,255,0.3);
+  transform:translateY(-4px); box-shadow:var(--glow-1);
+}
+.category-card .cat-icon {
+  width:48px; height:48px; border-radius:12px; margin:0 auto 12px;
+  display:flex; align-items:center; justify-content:center; font-size:20px;
+}
+.category-card h3 { font-size:14px; font-weight:600; margin-bottom:4px; }
+.category-card span { font-size:12px; color:var(--text-muted); }
+
+/* ===== Tools Grid ===== */
+.tools-grid {
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:20px; padding-bottom:100px;
+}
+.tool-card {
+  padding:24px; border-radius:var(--radius); cursor:pointer;
+  transition:var(--transition); display:flex; flex-direction:column; gap:12px;
+}
+.tool-card:hover {
+  background:var(--glass-hover); border-color:rgba(0,240,255,0.2);
+  transform:translateY(-4px); box-shadow:var(--glow-1);
+}
+.tool-card .tool-icon {
+  width:44px; height:44px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center; font-size:18px;
+  flex-shrink:0;
+}
+.tool-card h3 { font-size:16px; font-weight:600; }
+.tool-card p { font-size:13px; color:var(--text-secondary); flex:1; line-height:1.5; }
+.tool-card .tool-footer { display:flex; align-items:center; justify-content:space-between; margin-top:4px; }
+.tool-card .tool-tag {
+  font-size:11px; padding:3px 10px; border-radius:50px;
+  background:rgba(0,240,255,0.08); color:var(--accent-1);
+}
+.tool-card .open-link {
+  font-size:13px; color:var(--accent-1); text-decoration:none;
+  font-weight:500; display:flex; align-items:center; gap:4px;
+  transition:var(--transition);
+}
+.tool-card .open-link:hover { gap:8px; }
+
+/* ===== Modal ===== */
+.modal-overlay {
+  position:fixed; inset:0; z-index:200; background:rgba(0,0,0,0.7);
+  backdrop-filter:blur(8px); display:none; align-items:flex-start;
+  justify-content:center; padding:40px 24px; overflow-y:auto;
+}
+.modal-overlay.active { display:flex; }
+.modal {
+  width:100%; max-width:720px; border-radius:var(--radius);
+  padding:32px; position:relative; margin:auto 0;
+  animation: modalIn 0.3s ease;
+}
+@keyframes modalIn { from { opacity:0; transform:translateY(20px) scale(0.97); } to { opacity:1; transform:none; } }
+.modal-close {
+  position:absolute; top:16px; right:16px; width:36px; height:36px;
+  border-radius:50%; background:rgba(255,255,255,0.06); border:1px solid var(--glass-border);
+  color:var(--text-secondary); font-size:16px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:var(--transition);
+}
+.modal-close:hover { background:rgba(255,45,117,0.15); color:var(--accent-2); border-color:var(--accent-2); }
+.modal h2 { font-size:22px; font-weight:700; margin-bottom:4px; padding-right:40px; }
+.modal .modal-desc { font-size:13px; color:var(--text-secondary); margin-bottom:24px; }
+.modal-body { display:flex; flex-direction:column; gap:16px; }
+
+/* ===== Form Elements ===== */
+.form-group { display:flex; flex-direction:column; gap:6px; }
+.form-group label { font-size:13px; font-weight:500; color:var(--text-secondary); }
+.form-input {
+  padding:12px 16px; background:rgba(255,255,255,0.04);
+  border:1px solid var(--glass-border); border-radius:var(--radius-sm);
+  color:var(--text-primary); font-family:inherit; font-size:14px;
+  outline:none; transition:var(--transition); resize:vertical;
+}
+.form-input:focus { border-color:var(--accent-1); box-shadow:0 0 0 3px rgba(0,240,255,0.1); }
+.form-input::placeholder { color:var(--text-muted); }
+select.form-input { cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23f0f0f5' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; }
+select.form-input option { background:#1a1a2e; color:#f0f0f5; }
+.form-row { display:flex; gap:12px; flex-wrap:wrap; }
+.form-row .form-group { flex:1; min-width:140px; }
+.result-box {
+  padding:16px; background:rgba(0,240,255,0.04);
+  border:1px solid rgba(0,240,255,0.15); border-radius:var(--radius-sm);
+  font-size:15px; font-weight:600; min-height:48px;
+  display:flex; align-items:center; word-break:break-all;
+}
+.result-box.multi { align-items:flex-start; white-space:pre-wrap; font-weight:400; font-size:14px; }
+.output-area {
+  padding:16px; background:rgba(255,255,255,0.03);
+  border:1px solid var(--glass-border); border-radius:var(--radius-sm);
+  font-family:'Courier New',monospace; font-size:13px;
+  min-height:120px; max-height:300px; overflow:auto;
+  white-space:pre-wrap; word-break:break-all; color:var(--accent-4);
+}
+.btn-group { display:flex; gap:10px; flex-wrap:wrap; }
+.divider { height:1px; background:var(--glass-border); margin:8px 0; }
+.stat-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:12px; }
+.stat-card { padding:16px; border-radius:var(--radius-sm); text-align:center; background:rgba(255,255,255,0.03); border:1px solid var(--glass-border); }
+.stat-card .stat-val { font-size:24px; font-weight:800; }
+.stat-card .stat-label { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; margin-top:4px; }
+.tag-list { display:flex; flex-wrap:wrap; gap:8px; }
+.tag {
+  padding:6px 14px; border-radius:50px; font-size:12px; font-weight:500;
+  background:rgba(0,240,255,0.06); border:1px solid rgba(0,240,255,0.15);
+  color:var(--accent-1); cursor:pointer; transition:var(--transition);
+}
+.tag:hover, .tag.active { background:rgba(0,240,255,0.15); border-color:var(--accent-1); }
+.color-preview {
+  width:100%; height:80px; border-radius:var(--radius-sm); border:1px solid var(--glass-border);
+  transition:var(--transition);
+}
+input[type="color"] { width:100%; height:48px; border:none; border-radius:var(--radius-sm); cursor:pointer; background:transparent; }
+input[type="range"] { width:100%; accent-color:var(--accent-1); }
+.slider-label { display:flex; justify-content:space-between; font-size:12px; color:var(--text-secondary); }
+.toast {
+  position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(80px);
+  padding:12px 24px; border-radius:var(--radius-sm); font-size:14px;
+  font-weight:500; z-index:999; opacity:0; transition:var(--transition);
+  background:rgba(0,255,136,0.15); border:1px solid rgba(0,255,136,0.3); color:var(--accent-4);
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+.dice-display { font-size:64px; text-align:center; padding:20px; }
+.stopwatch-display { font-size:48px; font-weight:800; text-align:center; font-variant-numeric:tabular-nums; }
+.password-display { font-family:'Courier New',monospace; font-size:16px; letter-spacing:1px; word-break:break-all; }
+.sim-badge {
+  display:inline-flex; align-items:center; gap:4px; padding:3px 10px;
+  border-radius:50px; font-size:10px; font-weight:600; text-transform:uppercase;
+  background:rgba(255,45,117,0.1); border:1px solid rgba(255,45,117,0.3); color:var(--accent-2);
+}
+.gradient-preview {
+  width:100%; height:120px; border-radius:var(--radius-sm); border:1px solid var(--glass-border);
+}
+.lorem-output { color:var(--text-secondary); font-size:14px; line-height:1.8; max-height:300px; overflow-y:auto; padding:16px; background:rgba(255,255,255,0.02); border-radius:var(--radius-sm); border:1px solid var(--glass-border); }
+.canvas-wrap { display:flex; justify-content:center; padding:16px; background:rgba(255,255,255,0.02); border-radius:var(--radius-sm); border:1px solid var(--glass-border); }
+.canvas-wrap canvas { max-width:100%; border-radius:8px; }
+
+/* ===== Footer ===== */
+footer {
+  padding:60px 24px 30px; border-top:1px solid var(--glass-border);
+  text-align:center; position:relative; z-index:1;
+}
+footer p { color:var(--text-muted); font-size:13px; }
+footer a { color:var(--accent-1); text-decoration:none; }
+footer a:hover { text-decoration:underline; }
+.footer-links { display:flex; gap:24px; justify-content:center; margin-bottom:20px; flex-wrap:wrap; }
+.footer-links a { color:var(--text-secondary); font-size:14px; }
+
+/* ===== No Results ===== */
+.no-results {
+  grid-column:1/-1; text-align:center; padding:80px 24px;
+}
+.no-results i { font-size:48px; color:var(--text-muted); margin-bottom:16px; }
+.no-results h3 { font-size:20px; margin-bottom:8px; }
+.no-results p { color:var(--text-muted); }
+
+/* ===== Responsive ===== */
+@media(max-width:768px) {
+  .nav-links { display:none; position:absolute; top:100%; left:0; right:0;
+    background:rgba(5,5,16,0.95); backdrop-filter:blur(20px);
+    flex-direction:column; padding:24px; gap:16px; border-bottom:1px solid var(--glass-border);
+  }
+  .nav-links.open { display:flex; }
+  .nav-toggle { display:block; }
+  .hero h1 { font-size:2.2rem; }
+  .tools-grid { grid-template-columns:1fr; }
+  .categories-grid { grid-template-columns:repeat(2,1fr); }
+  .modal { padding:24px; }
+  .form-row { flex-direction:column; }
+  .stat-grid { grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:480px) {
+  .categories-grid { grid-template-columns:1fr 1fr; gap:10px; }
+  .category-card { padding:16px; }
+  .stopwatch-display { font-size:32px; }
+  .dice-display { font-size:48px; }
+}
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-ring"></div>
+  <div class="loader-text">Loading Tool Jeck</div>
+</div>
+
+<!-- Background -->
+<div class="bg-scene"></div>
+<div class="bg-orb"></div>
+<div class="bg-orb"></div>
+<div class="bg-orb"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Navigation -->
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo" onclick="goHome()">
+      <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+      Tool Jeck
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#hero" onclick="closeNav()">Home</a></li>
+      <li><a href="#categories" onclick="closeNav()">Categories</a></li>
+      <li><a href="#tools" onclick="closeNav()">All Tools</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-content fade-in">
+    <div class="hero-badge"><i class="fas fa-circle"></i> 50+ Tools Available</div>
+    <h1>Tool Jeck &mdash; 50+ Free Online Tools</h1>
+    <p>All-in-one tools for productivity, coding, text processing, math, and AI — all running in your browser, no signup required.</p>
+    <div class="hero-actions">
+      <a href="#tools" class="btn btn-primary"><i class="fas fa-rocket"></i> Explore Tools</a>
+      <a href="#categories" class="btn btn-secondary"><i class="fas fa-grid-2"></i> Browse Categories</a>
+    </div>
+  </div>
+</section>
+
+<!-- Search -->
+<section class="search-section" id="searchSection">
+  <div class="search-bar fade-in">
+    <i class="fas fa-search"></i>
+    <input type="text" id="searchInput" placeholder="Search 50+ tools..." autocomplete="off">
+  </div>
+  <div class="search-count" id="searchCount"></div>
+</section>
+
+<!-- Categories -->
+<section id="categories" style="padding:0 24px 40px;">
+  <div class="container">
+    <div class="section-header fade-in">
+      <h2>Browse by Category</h2>
+      <p>Find the perfect tool for your task</p>
+    </div>
+    <div class="categories-grid fade-in" id="categoriesGrid"></div>
+  </div>
+</section>
+
+<!-- Tools Grid -->
+<section id="tools" style="padding:0 24px 40px;">
+  <div class="container">
+    <div class="section-header fade-in">
+      <h2>All Tools</h2>
+      <p>Click any tool to open it instantly</p>
+    </div>
+    <div class="tools-grid" id="toolsGrid"></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="#hero">Home</a>
+      <a href="#tools">All Tools</a>
+      <a href="#categories">Categories</a>
+      <a href="#" onclick="event.preventDefault()">About</a>
+      <a href="#" onclick="event.preventDefault()">Privacy</a>
+    </div>
+    <p>&copy; 2025 Tool Jeck. All tools run 100% in your browser. No data is sent anywhere.</p>
+  </div>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal glass" id="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+    <h2 id="modalTitle"></h2>
+    <p class="modal-desc" id="modalDesc"></p>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ========================================================
+   TOOL JECK - Complete JavaScript
+   ======================================================== */
+
+// ===== Tool Data =====
+const categories = [
+  { id:'text', name:'Text Tools', icon:'fa-font', color:'#00f0ff', count:0 },
+  { id:'code', name:'Code Tools', icon:'fa-code', color:'#7b2dff', count:0 },
+  { id:'math', name:'Math & Logic', icon:'fa-calculator', color:'#ff2d75', count:0 },
+  { id:'generators', name:'Generators', icon:'fa-wand-magic-sparkles', color:'#00ff88', count:0 },
+  { id:'converters', name:'Converters', icon:'fa-arrow-right-arrow-left', color:'#ffaa00', count:0 },
+  { id:'ai', name:'AI Simulated', icon:'fa-brain', color:'#ff6bca', count:0 },
+  { id:'design', name:'Design', icon:'fa-palette', color:'#4ecdc4', count:0 },
+  { id:'time', name:'Time & Date', icon:'fa-clock', color:'#a78bfa', count:0 },
+];
+
+const tools = [
+  // TEXT (12)
+  { id:'word-counter', name:'Word Counter', desc:'Count words, characters, sentences, and paragraphs in your text.', category:'text', icon:'fa-align-left' },
+  { id:'case-converter', name:'Case Converter', desc:'Convert text between uppercase, lowercase, title case, and more.', category:'text', icon:'fa-text-height' },
+  { id:'text-reverser', name:'Text Reverser', desc:'Reverse your text instantly — characters, words, or lines.', category:'text', icon:'fa-rotate-left' },
+  { id:'remove-duplicates', name:'Remove Duplicates', desc:'Remove duplicate lines from any block of text.', category:'text', icon:'fa-filter' },
+  { id:'text-to-binary', name:'Text to Binary', desc:'Convert any text string to binary representation.', category:'text', icon:'fa-barcode' },
+  { id:'binary-to-text', name:'Binary to Text', desc:'Convert binary code back to readable text.', category:'text', icon:'fa-language' },
+  { id:'find-replace', name:'Find & Replace', desc:'Find and replace text patterns with one click.', category:'text', icon:'fa-magnifying-glass' },
+  { id:'lorem-generator', name:'Lorem Ipsum Generator', desc:'Generate placeholder text paragraphs for your designs.', category:'text', icon:'fa-paragraph' },
+  { id:'character-counter', name:'Character Counter', desc:'Count total characters with and without spaces.', category:'text', icon:'fa-hashtag' },
+  { id:'text-sorter', name:'Text Sorter', desc:'Sort lines alphabetically, numerically, or reverse.', category:'text', icon:'fa-arrow-down-a-z' },
+  { id:'line-counter', name:'Line Counter', desc:'Count total lines, empty lines, and non-empty lines.', category:'text', icon:'fa-list-ol' },
+  { id:'word-frequency', name:'Word Frequency', desc:'Analyze how often each word appears in your text.', category:'text', icon:'fa-chart-bar' },
+
+  // CODE (6)
+  { id:'json-formatter', name:'JSON Formatter', desc:'Beautify and validate JSON data with proper indentation.', category:'code', icon:'fa-brackets-curly' },
+  { id:'base64-encoder', name:'Base64 Encoder/Decoder', desc:'Encode text to Base64 or decode Base64 back to text.', category:'code', icon:'fa-lock' },
+  { id:'html-escape', name:'HTML Entity Encoder', desc:'Encode or decode HTML special characters and entities.', category:'code', icon:'fa-code' },
+  { id:'js-minifier', name:'JS Minifier', desc:'Minify JavaScript code by removing whitespace and comments.', category:'code', icon:'fa-compress' },
+  { id:'css-minifier', name:'CSS Minifier', desc:'Minify CSS code for smaller file sizes.', category:'code', icon:'fa-file-code' },
+  { id:'markdown-preview', name:'Markdown Preview', desc:'Write Markdown and see a live HTML preview.', category:'code', icon:'fa-eye' },
+
+  // MATH (5)
+  { id:'bmi-calculator', name:'BMI Calculator', desc:'Calculate your Body Mass Index from height and weight.', category:'math', icon:'fa-weight-scale' },
+  { id:'percentage-calc', name:'Percentage Calculator', desc:'Calculate percentages, increases, and differences.', category:'math', icon:'fa-percent' },
+  { id:'random-number', name:'Random Number Generator', desc:'Generate random numbers in any custom range.', category:'math', icon:'fa-dice' },
+  { id:'greatest-common', name:'GCD Calculator', desc:'Find the Greatest Common Divisor of two numbers.', category:'math', icon:'fa-divide' },
+  { id:'prime-checker', name:'Prime Number Checker', desc:'Check if a number is prime and find nearby primes.', category:'math', icon:'fa-star' },
+
+  // GENERATORS (6)
+  { id:'password-gen', name:'Password Generator', desc:'Generate strong, secure passwords with custom rules.', category:'generators', icon:'fa-key' },
+  { id:'uuid-gen', name:'UUID Generator', desc:'Generate random UUID v4 identifiers.', category:'generators', icon:'fa-fingerprint' },
+  { id:'random-color', name:'Random Color Generator', desc:'Generate random colors with HEX, RGB, and HSL values.', category:'generators', icon:'fa-droplet' },
+  { id:'dice-roller', name:'Dice Roller', desc:'Roll virtual dice with customizable sides.', category:'generators', icon:'fa-dice-five' },
+  { id:'coin-flip', name:'Coin Flipper', desc:'Flip a virtual coin — heads or tails.', category:'generators', icon:'fa-coins' },
+  { id:'qr-generator', name:'QR Code Generator', desc:'Generate QR codes from any text or URL.', category:'generators', icon:'fa-qrcode' },
+
+  // CONVERTERS (7)
+  { id:'unit-converter', name:'Unit Converter', desc:'Convert between length, weight, temperature, and more.', category:'converters', icon:'fa-ruler' },
+  { id:'temp-converter', name:'Temperature Converter', desc:'Convert between Celsius, Fahrenheit, and Kelvin.', category:'converters', icon:'fa-temperature-half' },
+  { id:'number-base', name:'Number Base Converter', desc:'Convert numbers between binary, octal, decimal, and hex.', category:'converters', icon:'fa-hashtag' },
+  { id:'weight-converter', name:'Weight Converter', desc:'Convert between kg, lb, oz, grams, and more.', category:'converters', icon:'fa-weight-hanging' },
+  { id:'length-converter', name:'Length Converter', desc:'Convert between meters, feet, inches, miles, and more.', category:'converters', icon:'fa-ruler-combined' },
+  { id:'speed-converter', name:'Speed Converter', desc:'Convert between km/h, mph, m/s, and knots.', category:'converters', icon:'fa-gauge-high' },
+  { id:'url-encoder', name:'URL Encoder/Decoder', desc:'Encode or decode URL components safely.', category:'converters', icon:'fa-link' },
+
+  // AI SIMULATED (5)
+  { id:'ai-sentence', name:'AI Sentence Generator', desc:'Simulated AI that generates creative sentences on demand.', category:'ai', icon:'fa-comment-dots', sim:true },
+  { id:'ai-story', name:'AI Story Starter', desc:'Get simulated AI-generated story opening paragraphs.', category:'ai', icon:'fa-book-open', sim:true },
+  { id:'ai-poem', name:'AI Poem Generator', desc:'Simulated AI creates short poems on any topic.', category:'ai', icon:'fa-feather', sim:true },
+  { id:'ai-email', name:'AI Email Writer', desc:'Simulated AI drafts professional emails for you.', category:'ai', icon:'fa-envelope', sim:true },
+  { id:'ai-slogan', name:'AI Slogan Generator', desc:'Generate catchy slogans with simulated AI creativity.', category:'ai', icon:'fa-bullhorn', sim:true },
+
+  // DESIGN (4)
+  { id:'color-picker', name:'Color Picker', desc:'Pick any color and get HEX, RGB, HSL values instantly.', category:'design', icon:'fa-eyedropper' },
+  { id:'gradient-gen', name:'Gradient Generator', desc:'Create beautiful CSS gradients with live preview.', category:'design', icon:'fa-paintbrush' },
+  { id:'shadow-gen', name:'Box Shadow Generator', desc:'Design CSS box shadows with a visual editor.', category:'design', icon:'fa-clone' },
+  { id:'text-shadow', name:'Text Shadow Generator', desc:'Create stunning text shadow CSS effects.', category:'design', icon:'fa-heading' },
+
+  // TIME (5)
+  { id:'stopwatch', name:'Stopwatch', desc:'Precision stopwatch with lap time tracking.', category:'time', icon:'fa-stopwatch' },
+  { id:'timer', name:'Countdown Timer', desc:'Set a custom countdown timer with alerts.', category:'time', icon:'fa-hourglass-half' },
+  { id:'age-calc', name:'Age Calculator', desc:'Calculate exact age in years, months, and days.', category:'time', icon:'fa-cake-candles' },
+  { id:'date-diff', name:'Date Difference', desc:'Calculate the exact difference between two dates.', category:'time', icon:'fa-calendar-days' },
+  { id:'timestamp-convert', name:'Unix Timestamp Converter', desc:'Convert between Unix timestamps and readable dates.', category:'time', icon:'fa-clock-rotate-left' },
+];
+
+// Count tools per category
+categories.forEach(c => c.count = tools.filter(t => t.category === c.id).length);
+
+// ===== DOM References =====
+const $ = id => document.getElementById(id);
+const loader = $('loader');
+const navbar = $('navbar');
+const navToggle = $('navToggle');
+const navLinks = $('navLinks');
+const searchInput = $('searchInput');
+const searchCount = $('searchCount');
+const categoriesGrid = $('categoriesGrid');
+const toolsGrid = $('toolsGrid');
+const modalOverlay = $('modalOverlay');
+const modalTitle = $('modalTitle');
+const modalDesc = $('modalDesc');
+const modalBody = $('modalBody');
+const modalClose = $('modalClose');
+const toastEl = $('toast');
+
+// ===== Toast =====
+let toastTimer;
+function showToast(msg) {
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2000);
+}
+
+// ===== Copy to Clipboard =====
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!')).catch(() => showToast('Failed to copy'));
+}
+
+// ===== Loader =====
+window.addEventListener('load', () => {
+  setTimeout(() => loader.classList.add('hidden'), 600);
+});
+
+// ===== Nav =====
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+function closeNav() { navLinks.classList.remove('open'); }
+
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+function goHome() {
+  modalOverlay.classList.remove('active');
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+// ===== Scroll Fade In =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold:0.1 });
+function observeFadeIns() { document.querySelectorAll('.fade-in:not(.visible)').forEach(el => observer.observe(el)); }
+
+// ===== Render Categories =====
+function renderCategories() {
+  categoriesGrid.innerHTML = categories.map(c => `
+    <div class="category-card glass" onclick="filterByCategory('${c.id}')">
+      <div class="cat-icon" style="background:${c.color}15;color:${c.color}"><i class="fas ${c.icon}"></i></div>
+      <h3>${c.name}</h3>
+      <span>${c.count} tools</span>
+    </div>
+  `).join('');
+}
+
+let activeCategory = null;
+function filterByCategory(catId) {
+  activeCategory = activeCategory === catId ? null : catId;
+  searchInput.value = '';
+  renderTools();
+  document.getElementById('tools').scrollIntoView({ behavior:'smooth' });
+}
+
+// ===== Render Tools =====
+function renderTools() {
+  const query = searchInput.value.toLowerCase().trim();
+  let filtered = tools;
+  if (activeCategory) filtered = filtered.filter(t => t.category === activeCategory);
+  if (query) filtered = filtered.filter(t => t.name.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query) || t.category.includes(query));
+
+  if (filtered.length === 0) {
+    toolsGrid.innerHTML = `<div class="no-results"><i class="fas fa-search"></i><h3>No tools found</h3><p>Try a different search term or category</p></div>`;
+    searchCount.textContent = '';
+    return;
+  }
+  const catColor = catId => (categories.find(c=>c.id===catId)||{}).color || '#00f0ff';
+  searchCount.textContent = query || activeCategory ? `Showing ${filtered.length} of ${tools.length} tools` : '';
+
+  toolsGrid.innerHTML = filtered.map(t => `
+    <div class="tool-card glass fade-in visible" onclick="openTool('${t.id}')">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="tool-icon" style="background:${catColor(t.category)}12;color:${catColor(t.category)}"><i class="fas ${t.icon}"></i></div>
+        <div>
+          <h3>${t.name} ${t.sim?'<span class="sim-badge">Demo</span>':''}</h3>
+          <p style="margin-top:2px">${t.desc}</p>
+        </div>
+      </div>
+      <div class="tool-footer">
+        <span class="tool-tag">${(categories.find(c=>c.id===t.category)||{}).name||''}</span>
+        <span class="open-link">Open <i class="fas fa-arrow-right" style="font-size:11px"></i></span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== Search =====
+searchInput.addEventListener('input', () => {
+  activeCategory = null;
+  renderTools();
+});
+
+// ===== Modal System =====
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', e => { if(e.target === modalOverlay) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+function closeModal() { modalOverlay.classList.remove('active'); document.body.style.overflow=''; }
+
+function openTool(id) {
+  const tool = tools.find(t => t.id === id);
+  if(!tool) return;
+  modalTitle.textContent = tool.name + (tool.sim ? ' (Simulated)' : '');
+  modalDesc.textContent = tool.desc;
+  modalBody.innerHTML = '';
+  document.body.style.overflow='hidden';
+
+  // Call tool renderer
+  const fn = toolRenderers[id];
+  if(fn) fn(tool);
+  else modalBody.innerHTML = '<p style="color:var(--text-muted)">Tool is loading...</p>';
+
+  modalOverlay.classList.add('active');
+  // Focus first input if exists
+  setTimeout(() => { const inp = modalBody.querySelector('input,textarea'); if(inp) inp.focus(); }, 100);
+}
+
+// Helper to build common form elements
+function inputField(label, id, opts={}) {
+  return `<div class="form-group"><label>${label}</label><input class="form-input" id="${id}" type="${opts.type||'text'}" placeholder="${opts.placeholder||''}" ${opts.value!==undefined?'value="'+opts.value+'"':''} ${opts.min!==undefined?'min="'+opts.min+'"':''} ${opts.max!==undefined?'max="'+opts.max+'"':''} ${opts.step?'step="'+opts.step+'"':''}></div>`;
+}
+function textareaField(label, id, opts={}) {
+  return `<div class="form-group"><label>${label}</label><textarea class="form-input" id="${id}" rows="${opts.rows||5}" placeholder="${opts.placeholder||''}">${opts.value||''}</textarea></div>`;
+}
+function selectField(label, id, options) {
+  const opts = options.map(o => `<option value="${o.value}">${o.label}</option>`).join('');
+  return `<div class="form-group"><label>${label}</label><select class="form-input" id="${id}">${opts}</select></div>`;
+}
+
+// ===== TOOL RENDERERS =====
+const toolRenderers = {};
+
+// --- 1. Word Counter ---
+toolRenderers['word-counter'] = () => {
+  modalBody.innerHTML = textareaField('Enter your text', 'wc-input', {rows:8, placeholder:'Type or paste your text here...'}) +
+    '<div class="stat-grid" id="wc-stats"></div>';
+  const update = () => {
+    const v = $('wc-input').value;
+    const words = v.trim() ? v.trim().split(/\s+/).length : 0;
+    const chars = v.length;
+    const noSpace = v.replace(/\s/g,'').length;
+    const sentences = v.trim() ? (v.match(/[.!?]+/g)||[]).length : 0;
+    const paragraphs = v.trim() ? v.split(/\n\s*\n/).filter(p=>p.trim()).length : 0;
+    const lines = v ? v.split('\n').length : 0;
+    $('wc-stats').innerHTML = [
+      ['Words', words, '#00f0ff'], ['Characters', chars, '#7b2dff'],
+      ['No Spaces', noSpace, '#ff2d75'], ['Sentences', sentences, '#00ff88'],
+      ['Paragraphs', paragraphs, '#ffaa00'], ['Lines', lines, '#4ecdc4']
+    ].map(([l,v2,c]) => `<div class="stat-card"><div class="stat-val" style="color:${c}">${v2}</div><div class="stat-label">${l}</div></div>`).join('');
+  };
+  $('wc-input').addEventListener('input', update);
+  update();
+};
+
+// --- 2. Case Converter ---
+toolRenderers['case-converter'] = () => {
+  modalBody.innerHTML = textareaField('Input text', 'cc-input', {rows:4, placeholder:'Enter text...'}) +
+    '<div class="btn-group">' +
+    ['UPPERCASE','lowercase','Title Case','camelCase','snake_case','kebab-case','aLtErNaTiNg'].map(c =>
+      `<button class="btn btn-secondary btn-sm" onclick="doCaseConvert('${c}')">${c}</button>`
+    ).join('') + '</div>' +
+    '<div class="form-group" style="margin-top:4px"><label>Result</label><div class="output-area" id="cc-output">Click a button above</div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('cc-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+window.doCaseConvert = (type) => {
+  const v = $('cc-input').value;
+  let r = '';
+  switch(type) {
+    case 'UPPERCASE': r=v.toUpperCase(); break;
+    case 'lowercase': r=v.toLowerCase(); break;
+    case 'Title Case': r=v.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()); break;
+    case 'camelCase': r=v.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g,(_,c)=>c.toUpperCase()); break;
+    case 'snake_case': r=v.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,''); break;
+    case 'kebab-case': r=v.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,''); break;
+    case 'aLtErNaTiNg': r=v.split('').map((c,i)=>i%2?c.toLowerCase():c.toUpperCase()).join(''); break;
+  }
+  $('cc-output').textContent = r;
+};
+
+// --- 3. Text Reverser ---
+toolRenderers['text-reverser'] = () => {
+  modalBody.innerHTML = textareaField('Input text', 'tr-input', {rows:4, placeholder:'Enter text...'}) +
+    '<div class="btn-group">' +
+    `<button class="btn btn-primary btn-sm" onclick="$('tr-output').textContent=$('tr-input').value.split('').reverse().join('')">Reverse Characters</button>` +
+    `<button class="btn btn-secondary btn-sm" onclick="$('tr-output').textContent=$('tr-input').value.split(' ').reverse().join(' ')">Reverse Words</button>` +
+    `<button class="btn btn-secondary btn-sm" onclick="$('tr-output').textContent=$('tr-input').value.split('\\n').reverse().join('\\n')">Reverse Lines</button>` +
+    '</div>' +
+    '<div class="form-group" style="margin-top:4px"><label>Result</label><div class="output-area" id="tr-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('tr-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+
+// --- 4. Remove Duplicates ---
+toolRenderers['remove-duplicates'] = () => {
+  modalBody.innerHTML = textareaField('Enter lines', 'rd-input', {rows:6, placeholder:'One item per line...'}) +
+    `<button class="btn btn-primary btn-sm" onclick="doRemoveDupes()"><i class="fas fa-filter"></i> Remove Duplicates</button>` +
+    '<div class="form-group" style="margin-top:4px"><label>Result</label><div class="output-area" id="rd-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('rd-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+window.doRemoveDupes = () => {
+  const lines = $('rd-input').value.split('\n');
+  const unique = [...new Set(lines.map(l=>l.trim()))].filter(l=>l);
+  $('rd-output').textContent = unique.join('\n');
+  showToast(`Removed ${lines.length - unique.length} duplicates`);
+};
+
+// --- 5. Text to Binary ---
+toolRenderers['text-to-binary'] = () => {
+  modalBody.innerHTML = textareaField('Enter text', 't2b-input', {rows:4, placeholder:'Hello World'}) +
+    `<button class="btn btn-primary btn-sm" onclick="$('t2b-output').textContent=Array.from($('t2b-input').value).map(c=>c.charCodeAt(0).toString(2).padStart(8,'0')).join(' ')"><i class="fas fa-arrow-right"></i> Convert</button>` +
+    '<div class="form-group" style="margin-top:4px"><label>Binary Output</label><div class="output-area" id="t2b-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('t2b-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+
+// --- 6. Binary to Text ---
+toolRenderers['binary-to-text'] = () => {
+  modalBody.innerHTML = textareaField('Enter binary (space-separated)', 'b2t-input', {rows:4, placeholder:'01001000 01101001'}) +
+    `<button class="btn btn-primary btn-sm" onclick="$('b2t-output').textContent=$('b2t-input').value.trim().split(/\\s+/).map(b=>String.fromCharCode(parseInt(b,2))).join('')"><i class="fas fa-arrow-right"></i> Convert</button>` +
+    '<div class="form-group" style="margin-top:4px"><label>Text Output</label><div class="output-area" id="b2t-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('b2t-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+
+// --- 7. Find & Replace ---
+toolRenderers['find-replace'] = () => {
+  modalBody.innerHTML = textareaField('Text', 'fr-text', {rows:6, placeholder:'Paste your text...'}) +
+    '<div class="form-row">' + inputField('Find', 'fr-find') + inputField('Replace with', 'fr-replace') + '</div>' +
+    '<div class="btn-group">' +
+    `<button class="btn btn-primary btn-sm" onclick="doFindReplace(false)"><i class="fas fa-exchange-alt"></i> Replace First</button>` +
+    `<button class="btn btn-primary btn-sm" onclick="doFindReplace(true)"><i class="fas fa-exchange-alt"></i> Replace All</button>` +
+    '</div>' +
+    '<div class="form-group" style="margin-top:4px"><label>Result</label><div class="output-area" id="fr-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('fr-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+window.doFindReplace = (all) => {
+  const t=$('fr-text').value, f=$('fr-find').value, r=$('fr-replace').value;
+  if(!f) return showToast('Enter a search term');
+  $('fr-output').textContent = all ? t.split(f).join(r) : t.replace(f, r);
+};
+
+// --- 8. Lorem Ipsum ---
+toolRenderers['lorem-generator'] = () => {
+  const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula ut dictum pharetra, nisi nunc fringilla magna, in commodo elit erat nec turpis. Ut pharetra augue nec augue.";
+  modalBody.innerHTML = '<div class="form-row">' + inputField('Paragraphs', 'lorem-count', {type:'number', min:1, max:20, value:3}) + '</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="doLoremGen()"><i class="fas fa-paragraph"></i> Generate</button>` +
+    '<div class="lorem-output" id="lorem-output"></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('lorem-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+  window._loremBase = lorem;
+};
+window.doLoremGen = () => {
+  const n = Math.min(20, Math.max(1, parseInt($('lorem-count').value)||1));
+  const paras = Array(n).fill(window._loremBase).map((p,i) => (i%2?'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.':'') + p).join('\n\n');
+  $('lorem-output').textContent = paras;
+};
+
+// --- 9. Character Counter ---
+toolRenderers['character-counter'] = () => {
+  modalBody.innerHTML = textareaField('Enter text', 'chc-input', {rows:6, placeholder:'Type or paste...'}) +
+    '<div class="stat-grid" id="chc-stats"></div>';
+  const update = () => {
+    const v=$('chc-input').value;
+    const total=v.length, noSpace=v.replace(/\s/g,'').length, spaces=v.replace(/[^\s]/g,'').length;
+    const letters=(v.match(/[a-zA-Z]/g)||[]).length, digits=(v.match(/\d/g)||[]).length, special=total-letters-digits-spaces;
+    $('chc-stats').innerHTML = [
+      ['Total',total,'#00f0ff'],['No Spaces',noSpace,'#7b2dff'],['Spaces',spaces,'#ff2d75'],
+      ['Letters',letters,'#00ff88'],['Digits',digits,'#ffaa00'],['Special',special,'#4ecdc4']
+    ].map(([l,v2,c])=>`<div class="stat-card"><div class="stat-val" style="color:${c}">${v2}</div><div class="stat-label">${l}</div></div>`).join('');
+  };
+  $('chc-input').addEventListener('input',update); update();
+};
+
+// --- 10. Text Sorter ---
+toolRenderers['text-sorter'] = () => {
+  modalBody.innerHTML = textareaField('Enter lines to sort', 'ts-input', {rows:6, placeholder:'One line per item...'}) +
+    '<div class="btn-group">' +
+    `<button class="btn btn-primary btn-sm" onclick="doTextSort('asc')">A-Z Ascending</button>` +
+    `<button class="btn btn-secondary btn-sm" onclick="doTextSort('desc')">Z-A Descending</button>` +
+    `<button class="btn btn-secondary btn-sm" onclick="doTextSort('num')">Numeric</button>` +
+    `<button class="btn btn-secondary btn-sm" onclick="doTextSort('len')">By Length</button>` +
+    '</div>' +
+    '<div class="form-group" style="margin-top:4px"><label>Result</label><div class="output-area" id="ts-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('ts-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+window.doTextSort = (type) => {
+  let lines = $('ts-input').value.split('\n').filter(l=>l.trim());
+  switch(type) {
+    case 'asc': lines.sort((a,b)=>a.localeCompare(b)); break;
+    case 'desc': lines.sort((a,b)=>b.localeCompare(a)); break;
+    case 'num': lines.sort((a,b)=>parseFloat(a)-parseFloat(b)); break;
+    case 'len': lines.sort((a,b)=>a.length-b.length); break;
+  }
+  $('ts-output').textContent = lines.join('\n');
+};
+
+// --- 11. Line Counter ---
+toolRenderers['line-counter'] = () => {
+  modalBody.innerHTML = textareaField('Enter text', 'lc-input', {rows:6, placeholder:'Paste text with multiple lines...'}) +
+    '<div class="stat-grid" id="lc-stats"></div>';
+  const update = () => {
+    const v=$('lc-input').value, lines=v.split('\n');
+    const total=lines.length, empty=lines.filter(l=>!l.trim()).length, nonEmpty=total-empty;
+    const longest=Math.max(...lines.map(l=>l.length));
+    const words=v.trim()?v.trim().split(/\s+/).length:0;
+    $('lc-stats').innerHTML = [
+      ['Total Lines',total,'#00f0ff'],['Non-Empty',nonEmpty,'#7b2dff'],['Empty',empty,'#ff2d75'],
+      ['Longest Line',longest,'#00ff88'],['Words',words,'#ffaa00']
+    ].map(([l,v2,c])=>`<div class="stat-card"><div class="stat-val" style="color:${c}">${v2}</div><div class="stat-label">${l}</div></div>`).join('');
+  };
+  $('lc-input').addEventListener('input',update); update();
+};
+
+// --- 12. Word Frequency ---
+toolRenderers['word-frequency'] = () => {
+  modalBody.innerHTML = textareaField('Enter text', 'wf-input', {rows:5, placeholder:'Paste text to analyze...'}) +
+    `<button class="btn btn-primary btn-sm" onclick="doWordFreq()"><i class="fas fa-chart-bar"></i> Analyze</button>` +
+    '<div class="output-area" id="wf-output" style="max-height:300px">Enter text and click Analyze</div>';
+};
+window.doWordFreq = () => {
+  const words = $('wf-input').value.toLowerCase().match(/\b[a-z]+\b/g) || [];
+  const freq = {};
+  words.forEach(w => freq[w] = (freq[w]||0)+1);
+  const sorted = Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,30);
+  $('wf-output').textContent = sorted.map(([w,c])=>`${w}: ${c}`).join('\n') || 'No words found';
+};
+
+// --- 13. JSON Formatter ---
+toolRenderers['json-formatter'] = () => {
+  modalBody.innerHTML = textareaField('Paste JSON', 'jf-input', {rows:8, placeholder:'{"key":"value"}'}) +
+    '<div class="btn-group">' +
+    `<button class="btn btn-primary btn-sm" onclick="doJsonFormat()"><i class="fas fa-magic"></i> Format</button>` +
+    `<button class="btn btn-secondary btn-sm" onclick="doJsonMinify()"><i class="fas fa-compress"></i> Minify</button>` +
+    '</div>' +
+    '<div class="form-group" style="margin-top:4px"><label>Output</label><div class="output-area" id="jf-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('jf-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+window.doJsonFormat = () => {
+  try { $('jf-output').textContent = JSON.stringify(JSON.parse($('jf-input').value), null, 2); }
+  catch(e) { $('jf-output').textContent = 'Error: ' + e.message; $('jf-output').style.color = 'var(--accent-2)'; setTimeout(()=>$('jf-output').style.color='',2000); }
+};
+window.doJsonMinify = () => {
+  try { $('jf-output').textContent = JSON.stringify(JSON.parse($('jf-input').value)); }
+  catch(e) { $('jf-output').textContent = 'Error: ' + e.message; }
+};
+
+// --- 14. Base64 Encoder/Decoder ---
+toolRenderers['base64-encoder'] = () => {
+  modalBody.innerHTML = textareaField('Input', 'b64-input', {rows:4, placeholder:'Text to encode/decode...'}) +
+    '<div class="btn-group">' +
+    `<button class="btn btn-primary btn-sm" onclick="try{$('b64-output').textContent=btoa(unescape(encodeURIComponent($('b64-input').value)))}catch(e){$('b64-output').textContent='Error: '+e.message}"><i class="fas fa-lock"></i> Encode</button>` +
+    `<button class="btn btn-secondary btn-sm" onclick="try{$('b64-output').textContent=decodeURIComponent(escape(atob($('b64-input').value.trim())))}catch(e){$('b64-output').textContent='Error: Invalid Base64'}"><i class="fas fa-lock-open"></i> Decode</button>` +
+    '</div>' +
+    '<div class="form-group" style="margin-top:4px"><label>Output</label><div class="output-area" id="b64-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('b64-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+
+// --- 15. HTML Entity Encoder ---
+toolRenderers['html-escape'] = () => {
+  modalBody.innerHTML = textareaField('Input', 'he-input', {rows:4, placeholder:'<div class="test">Hello</div>'}) +
+    '<div class="btn-group">' +
+    `<button class="btn btn-primary btn-sm" onclick="$('he-output').textContent=$('he-input').value.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')"><i class="fas fa-code"></i> Encode</button>` +
+    `<button class="btn btn-secondary btn-sm" onclick="const t=document.createElement('textarea');t.innerHTML=$('he-input').value;$('he-output').textContent=t.value"><i class="fas fa-code"></i> Decode</button>` +
+    '</div>' +
+    '<div class="form-group" style="margin-top:4px"><label>Output</label><div class="output-area" id="he-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('he-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+
+// --- 16. JS Minifier ---
+toolRenderers['js-minifier'] = () => {
+  modalBody.innerHTML = textareaField('JavaScript code', 'jsm-input', {rows:8, placeholder:'function hello() {\n  console.log("Hello");\n}'}) +
+    `<button class="btn btn-primary btn-sm" onclick="$('jsm-output').textContent=$('jsm-input').value.replace(/\/\/.*$/gm,'').replace(/\/\*[\s\S]*?\*\//g,'').replace(/\s+/g,' ').replace(/\s*([{}();,=+\-*/<>!&|?:])\s*/g,'$1').trim()"><i class="fas fa-compress"></i> Minify</button>` +
+    '<div class="form-group" style="margin-top:4px"><label>Minified Output</label><div class="output-area" id="jsm-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('jsm-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+
+// --- 17. CSS Minifier ---
+toolRenderers['css-minifier'] = () => {
+  modalBody.innerHTML = textareaField('CSS code', 'cssm-input', {rows:8, placeholder:'.class {\n  color: red;\n  margin: 10px;\n}'}) +
+    `<button class="btn btn-primary btn-sm" onclick="$('cssm-output').textContent=$('cssm-input').value.replace(/\/\*[\s\S]*?\*\//g,'').replace(/\s+/g,' ').replace(/\s*([{}:;,])\s*/g,'$1').replace(/;}/g,'}').trim()"><i class="fas fa-compress"></i> Minify</button>` +
+    '<div class="form-group" style="margin-top:4px"><label>Minified Output</label><div class="output-area" id="cssm-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('cssm-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+
+// --- 18. Markdown Preview ---
+toolRenderers['markdown-preview'] = () => {
+  modalBody.innerHTML = '<div class="form-row"><div class="form-group" style="flex:1"><label>Markdown</label><textarea class="form-input" id="md-input" rows="10" placeholder="# Hello\n\n**Bold** and *italic* text"></textarea></div>' +
+    '<div class="form-group" style="flex:1"><label>Preview</label><div class="output-area" id="md-output" style="min-height:220px;font-family:Poppins,sans-serif;white-space:normal"></div></div></div>';
+  $('md-input').addEventListener('input', () => {
+    let md = $('md-input').value;
+    md = md.replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>')
+      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>').replace(/\*(.+?)\*/g,'<em>$1</em>')
+      .replace(/`(.+?)`/g,'<code style="background:rgba(0,240,255,0.1);padding:2px 6px;border-radius:4px">$1</code>')
+      .replace(/^- (.+)$/gm,'<li>$1</li>').replace(/\n/g,'<br>');
+    $('md-output').innerHTML = md;
+  });
+};
+
+// --- 19. BMI Calculator ---
+toolRenderers['bmi-calculator'] = () => {
+  modalBody.innerHTML = '<div class="form-row">' + inputField('Weight (kg)', 'bmi-w', {type:'number', placeholder:'70'}) +
+    inputField('Height (cm)', 'bmi-h', {type:'number', placeholder:'175'}) + '</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="doBmi()"><i class="fas fa-calculator"></i> Calculate</button>` +
+    '<div class="stat-grid" id="bmi-result" style="margin-top:8px"></div>';
+};
+window.doBmi = () => {
+  const w=parseFloat($('bmi-w').value), h=parseFloat($('bmi-h').value)/100;
+  if(!w||!h) return showToast('Enter valid values');
+  const bmi = (w/(h*h)).toFixed(1);
+  let cat='Normal', color='#00ff88';
+  if(bmi<18.5){cat='Underweight';color='#00f0ff';}
+  else if(bmi<25){cat='Normal';color='#00ff88';}
+  else if(bmi<30){cat='Overweight';color='#ffaa00';}
+  else{cat='Obese';color='#ff2d75';}
+  $('bmi-result').innerHTML = `<div class="stat-card" style="grid-column:1/-1"><div class="stat-val" style="color:${color};font-size:36px">${bmi}</div><div class="stat-label">Your BMI — ${cat}</div></div>`;
+};
+
+// --- 20. Percentage Calculator ---
+toolRenderers['percentage-calc'] = () => {
+  modalBody.innerHTML = inputField('What is X% of Y?', 'pc-xy') +
+    `<button class="btn btn-primary btn-sm" onclick="const[x,y]=$('pc-xy').value.split('%').map(s=>parseFloat(s));if(!isNaN(x)&&!isNaN(y))$('pc-r1').textContent=(x/100*y).toFixed(2)"><i class="fas fa-calculator"></i> Calculate</button>` +
+    '<div class="result-box" id="pc-r1" style="margin-top:4px">—</div><div class="divider"></div>' +
+    inputField('X is what % of Y? (format: X of Y)', 'pc-xy2') +
+    `<button class="btn btn-primary btn-sm" onclick="const m=$('pc-xy2').value.match(/([\d.]+)\s*of\s*([\d.]+)/);if(m)$('pc-r2').textContent=(parseFloat(m[1])/parseFloat(m[2])*100).toFixed(2)+'%'"><i class="fas fa-calculator"></i> Calculate</button>` +
+    '<div class="result-box" id="pc-r2" style="margin-top:4px">—</div><div class="divider"></div>' +
+    '<div class="form-row">' + inputField('Value', 'pc-v3', {type:'number'}) + inputField('Increase %', 'pc-p3', {type:'number'}) + '</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="const v=parseFloat($('pc-v3').value),p=parseFloat($('pc-p3').value);if(!isNaN(v)&&!isNaN(p))$('pc-r3').textContent=(v*(1+p/100)).toFixed(2)"><i class="fas fa-calculator"></i> Calculate</button>` +
+    '<div class="result-box" id="pc-r3" style="margin-top:4px">—</div>';
+};
+
+// --- 21. Random Number ---
+toolRenderers['random-number'] = () => {
+  modalBody.innerHTML = '<div class="form-row">' + inputField('Min', 'rn-min', {type:'number', value:'1'}) +
+    inputField('Max', 'rn-max', {type:'number', value:'100'}) +
+    inputField('Count', 'rn-count', {type:'number', value:'1', min:1, max:100}) + '</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="doRandNum()"><i class="fas fa-dice"></i> Generate</button>` +
+    '<div class="result-box multi" id="rn-output" style="margin-top:4px">Click Generate</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('rn-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+window.doRandNum = () => {
+  const min=parseInt($('rn-min').value), max=parseInt($('rn-max').value), count=Math.min(100,parseInt($('rn-count').value)||1);
+  if(min>max) return showToast('Min must be less than Max');
+  const nums = Array(count).fill(0).map(()=>Math.floor(Math.random()*(max-min+1))+min);
+  $('rn-output').textContent = count===1 ? nums[0] : nums.join(', ');
+};
+
+// --- 22. GCD Calculator ---
+toolRenderers['greatest-common'] = () => {
+  modalBody.innerHTML = '<div class="form-row">' + inputField('Number A', 'gcd-a', {type:'number', placeholder:'48'}) +
+    inputField('Number B', 'gcd-b', {type:'number', placeholder:'18'}) + '</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="doGcd()"><i class="fas fa-divide"></i> Calculate GCD</button>` +
+    '<div class="result-box" id="gcd-output" style="margin-top:4px">—</div>';
+};
+window.doGcd = () => {
+  let a=Math.abs(parseInt($('gcd-a').value)), b=Math.abs(parseInt($('gcd-b').value));
+  if(isNaN(a)||isNaN(b)) return showToast('Enter valid numbers');
+  while(b){[a,b]=[b,a%b];}
+  $('gcd-output').textContent = `GCD: ${a}  |  LCM formula: (A×B)/GCD`;
+};
+
+// --- 23. Prime Checker ---
+toolRenderers['prime-checker'] = () => {
+  modalBody.innerHTML = inputField('Enter a number', 'prime-n', {type:'number', placeholder:'17'}) +
+    `<button class="btn btn-primary btn-sm" onclick="doPrimeCheck()"><i class="fas fa-star"></i> Check</button>` +
+    '<div class="result-box" id="prime-output" style="margin-top:4px">—</div>';
+};
+window.doPrimeCheck = () => {
+  const n=parseInt($('prime-n').value);
+  if(isNaN(n)||n<2) { $('prime-output').textContent='Not a prime number'; return; }
+  let isPrime=true;
+  for(let i=2;i<=Math.sqrt(n);i++) if(n%i===0){isPrime=false;break;}
+  // Find nearby primes
+  const nearby=[];
+  for(let i=Math.max(2,n-10);i<=n+10;i++){let p=true;for(let j=2;j<=Math.sqrt(i);j++)if(i%j===0){p=false;break;}if(p)nearby.push(i);}
+  $('prime-output').textContent = `${n} is ${isPrime?'a PRIME':'NOT a prime'} number. Nearby primes: ${nearby.join(', ')}`;
+};
+
+// --- 24. Password Generator ---
+toolRenderers['password-gen'] = () => {
+  modalBody.innerHTML = '<div class="result-box password-display" id="pg-output" style="justify-content:center;min-height:56px;font-size:18px;letter-spacing:2px">Click Generate</div>' +
+    '<div class="form-row">' +
+    `<div class="form-group"><label>Length: <span id="pg-len-val">16</span></label><input type="range" id="pg-len" min="6" max="64" value="16" oninput="$('pg-len-val').textContent=this.value"></div>` +
+    '</div>' +
+    '<div class="tag-list" style="margin:4px 0">' +
+    `<span class="tag active" id="pg-upper" onclick="this.classList.toggle('active')">A-Z</span>` +
+    `<span class="tag active" id="pg-lower" onclick="this.classList.toggle('active')">a-z</span>` +
+    `<span class="tag active" id="pg-digits" onclick="this.classList.toggle('active')">0-9</span>` +
+    `<span class="tag active" id="pg-symbols" onclick="this.classList.toggle('active')">!@#$</span>` +
+    '</div>' +
+    '<div class="btn-group" style="margin-top:8px">' +
+    `<button class="btn btn-primary btn-sm" onclick="doPassGen()"><i class="fas fa-key"></i> Generate</button>` +
+    `<button class="btn btn-secondary btn-sm" onclick="copyText($('pg-output').textContent)"><i class="fas fa-copy"></i> Copy</button>` +
+    '</div>';
+};
+window.doPassGen = () => {
+  let chars='';
+  if($('pg-upper').classList.contains('active')) chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if($('pg-lower').classList.contains('active')) chars+='abcdefghijklmnopqrstuvwxyz';
+  if($('pg-digits').classList.contains('active')) chars+='0123456789';
+  if($('pg-symbols').classList.contains('active')) chars+='!@#$%^&*()_+-=[]{}|;:,.<>?';
+  if(!chars) return showToast('Select at least one option');
+  const len=parseInt($('pg-len').value);
+  let pw='';const arr=new Uint32Array(len);crypto.getRandomValues(arr);
+  for(let i=0;i<len;i++) pw+=chars[arr[i]%chars.length];
+  $('pg-output').textContent=pw;
+};
+
+// --- 25. UUID Generator ---
+toolRenderers['uuid-gen'] = () => {
+  modalBody.innerHTML = `<button class="btn btn-primary btn-sm" onclick="doUuid()"><i class="fas fa-fingerprint"></i> Generate UUID</button>` +
+    '<div class="output-area" id="uuid-output" style="margin-top:8px">Click Generate</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('uuid-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+window.doUuid = () => {
+  const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return(c==='x'?r:(r&0x3|0x8)).toString(16);});
+  $('uuid-output').textContent = uuid;
+};
+
+// --- 26. Random Color ---
+toolRenderers['random-color'] = () => {
+  modalBody.innerHTML = '<div class="color-preview" id="rc-preview" style="height:100px;margin-bottom:16px"></div>' +
+    '<div class="stat-grid" id="rc-values"></div>' +
+    '<div class="btn-group" style="margin-top:12px">' +
+    `<button class="btn btn-primary btn-sm" onclick="doRandColor()"><i class="fas fa-droplet"></i> Random Color</button>` +
+    '</div>';
+};
+window.doRandColor = () => {
+  const hex = '#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');
+  const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+  $('rc-preview').style.background = hex;
+  $('rc-values').innerHTML = [
+    ['HEX',hex,'#00f0ff'],['RGB',`rgb(${r}, ${g}, ${b})`,'#7b2dff'],['HSL',`hsl(${Math.round(Math.atan2(g-b,r*2-g-b)*180/Math.PI+360)%360}, ${Math.round((Math.max(r,g,b)-Math.min(r,g,b))/(Math.max(r,g,b)+Math.min(r,g,b))*100)}%, ${Math.round((Math.max(r,g,b)+Math.min(r,g,b))/2/255*100)}%)`,'#00ff88']
+  ].map(([l,v,c])=>`<div class="stat-card" style="cursor:pointer" onclick="copyText('${v}')"><div class="stat-val" style="color:${c};font-size:14px">${v}</div><div class="stat-label">${l} (click to copy)</div></div>`).join('');
+};
+
+// --- 27. Dice Roller ---
+toolRenderers['dice-roller'] = () => {
+  modalBody.innerHTML = selectField('Dice Sides', 'dr-sides', [{value:'6',label:'D6'},{value:'8',label:'D8'},{value:'10',label:'D10'},{value:'12',label:'D12'},{value:'20',label:'D20'},{value:'100',label:'D100'}]) +
+    '<div class="dice-display" id="dr-result">?</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="const s=parseInt($('dr-sides').value);$('dr-result').textContent='🎲 '+Math.ceil(Math.random()*s)" style="margin:0 auto"><i class="fas fa-dice"></i> Roll</button>`;
+};
+
+// --- 28. Coin Flipper ---
+toolRenderers['coin-flip'] = () => {
+  modalBody.innerHTML = '<div class="dice-display" id="cf-result" style="font-size:48px">🪙</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="$('cf-result').textContent=Math.random()>0.5?'🪙 Heads':'🪙 Tails'" style="margin:0 auto"><i class="fas fa-coins"></i> Flip Coin</button>`;
+};
+
+// --- 29. QR Code Generator ---
+toolRenderers['qr-generator'] = () => {
+  modalBody.innerHTML = inputField('Text or URL', 'qr-input', {placeholder:'https://example.com'}) +
+    `<button class="btn btn-primary btn-sm" onclick="doQrGen()"><i class="fas fa-qrcode"></i> Generate QR</button>` +
+    '<div class="canvas-wrap" id="qr-canvas-wrap" style="margin-top:8px"></div>';
+};
+window.doQrGen = () => {
+  const text = $('qr-input').value.trim();
+  if(!text) return showToast('Enter text or URL');
+  // Simple QR code using a grid approach (basic implementation)
+  const size = 21; // QR Version 1
+  const scale = 8;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size * scale;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = '#000';
+
+  // Generate a pattern from the text (deterministic)
+  let hash = 0;
+  for(let i=0;i<text.length;i++) hash = ((hash<<5)-hash)+text.charCodeAt(i);
+
+  // Draw finder patterns
+  function drawFinder(x,y) {
+    for(let r=0;r<7;r++) for(let c=0;c<7;c++) {
+      if(r===0||r===6||c===0||c===6||(r>=2&&r<=4&&c>=2&&c<=4))
+        ctx.fillRect((x+c)*scale,(y+r)*scale,scale,scale);
+    }
+  }
+  drawFinder(0,0); drawFinder(size-7,0); drawFinder(0,size-7);
+
+  // Fill data area with deterministic pattern
+  const rng = (seed) => { seed=(seed*16807)%2147483647; return(seed-1)/2147483646; };
+  let seed = Math.abs(hash)+1;
+  for(let r=0;r<size;r++) for(let c=0;c<size;c++) {
+    if((r<8&&c<8)||(r<8&&c>=size-7)||(r>=size-7&&c<8)) continue;
+    if(r===6||c===6) { ctx.fillRect(c*scale,r*scale,scale,scale); continue; }
+    seed=(seed*16807)%2147483647;
+    if((seed-1)/2147483646 > 0.5) ctx.fillRect(c*scale,r*scale,scale,scale);
+  }
+
+  const wrap = $('qr-canvas-wrap');
+  wrap.innerHTML = '';
+  wrap.appendChild(canvas);
+  showToast('Note: This is a visual simulation, not a scannable QR code');
+};
+
+// --- 30. Unit Converter ---
+toolRenderers['unit-converter'] = () => {
+  const units = [
+    {label:'Length', units:[{v:'m',l:'Meters'},{v:'km',l:'Kilometers'},{v:'mi',l:'Miles'},{v:'ft',l:'Feet'},{v:'in',l:'Inches'},{v:'cm',l:'Centimeters'}], factor:{m:1,km:1000,mi:1609.344,ft:0.3048,'in':0.0254,cm:0.01}},
+    {label:'Weight', units:[{v:'kg',l:'Kilograms'},{v:'lb',l:'Pounds'},{v:'oz',l:'Ounces'},{v:'g',l:'Grams'},{v:'mg',l:'Milligrams'}], factor:{kg:1,lb:0.453592,oz:0.0283495,g:0.001,mg:0.000001}},
+    {label:'Area', units:[{v:'sqm',l:'Square Meters'},{v:'sqft',l:'Square Feet'},{v:'acre',l:'Acres'},{v:'hectare',l:'Hectares'}], factor:{sqm:1,sqft:0.092903,acre:4046.86,hectare:10000}},
+  ];
+  window._ucData = units;
+  const opts = units.map(u=>`<option value="${u.label}">${u.label}</option>`).join('');
+  modalBody.innerHTML = selectField('Category', 'uc-cat', units.map(u=>({value:u.label,label:u.label}))) +
+    '<div id="uc-fields"></div>' +
+    '<div class="result-box" id="uc-result" style="margin-top:8px">—</div>';
+  const renderFields = () => {
+    const cat = units.find(u=>u.label===$('uc-cat').value);
+    const uOpts = cat.units.map(u=>`<option value="${u.v}">${u.l}</option>`).join('');
+    $('uc-fields').innerHTML = `<div class="form-row">${inputField('Value','uc-val',{type:'number',placeholder:'1'})}${selectField('From','uc-from',cat.units)}${selectField('To','uc-to',cat.units)}</div>` +
+      `<button class="btn btn-primary btn-sm" onclick="doUnitConvert()"><i class="fas fa-arrow-right-arrow-left"></i> Convert</button>`;
+  };
+  $('uc-cat').addEventListener('change', renderFields);
+  renderFields();
+};
+window.doUnitConvert = () => {
+  const cat = window._ucData.find(u=>u.label===$('uc-cat').value);
+  const val=parseFloat($('uc-val').value), from=$('uc-from').value, to=$('uc-to').value;
+  if(isNaN(val)) return showToast('Enter a value');
+  const base = val * cat.factor[from];
+  const result = base / cat.factor[to];
+  $('uc-result').textContent = `${val} ${from} = ${result.toFixed(6).replace(/\.?0+$/,'')} ${to}`;
+};
+
+// --- 31. Temperature Converter ---
+toolRenderers['temp-converter'] = () => {
+  modalBody.innerHTML = inputField('Temperature', 'tc-val', {type:'number', placeholder:'100'}) +
+    selectField('From', 'tc-from', [{value:'C',label:'Celsius'},{value:'F',label:'Fahrenheit'},{value:'K',label:'Kelvin'}]) +
+    `<button class="btn btn-primary btn-sm" onclick="doTempConvert()"><i class="fas fa-temperature-half"></i> Convert</button>` +
+    '<div class="stat-grid" id="tc-result" style="margin-top:8px"></div>';
+};
+window.doTempConvert = () => {
+  const v=parseFloat($('tc-val').value), f=$('tc-from').value;
+  if(isNaN(v)) return showToast('Enter a value');
+  let c,f2,k;
+  if(f==='C'){c=v;f2=v*9/5+32;k=v+273.15;}
+  else if(f==='F'){c=(v-32)*5/9;f2=v;k=c+273.15;}
+  else{c=v-273.15;f2=c*9/5+32;k=v;}
+  $('tc-result').innerHTML = [
+    ['Celsius',c.toFixed(2)+' °C','#00f0ff'],['Fahrenheit',f2.toFixed(2)+' °F','#ff2d75'],['Kelvin',k.toFixed(2)+' K','#00ff88']
+  ].map(([l,v2,c2])=>`<div class="stat-card"><div class="stat-val" style="color:${c2}">${v2}</div><div class="stat-label">${l}</div></div>`).join('');
+};
+
+// --- 32. Number Base Converter ---
+toolRenderers['number-base'] = () => {
+  modalBody.innerHTML = inputField('Number', 'nb-val', {placeholder:'255'}) +
+    selectField('From Base', 'nb-from', [{value:'10',label:'Decimal'},{value:'2',label:'Binary'},{value:'8',label:'Octal'},{value:'16',label:'Hexadecimal'}]) +
+    `<button class="btn btn-primary btn-sm" onclick="doBaseConvert()"><i class="fas fa-hashtag"></i> Convert</button>` +
+    '<div class="stat-grid" id="nb-result" style="margin-top:8px"></div>';
+};
+window.doBaseConvert = () => {
+  const v=$('nb-val').value.trim(), base=parseInt($('nb-from').value);
+  const dec = parseInt(v, base);
+  if(isNaN(dec)) return showToast('Invalid number for selected base');
+  $('nb-result').innerHTML = [
+    ['Binary',dec.toString(2),'#00f0ff'],['Octal',dec.toString(8),'#7b2dff'],['Decimal',dec.toString(10),'#ff2d75'],['Hexadecimal',dec.toString(16).toUpperCase(),'#00ff88']
+  ].map(([l,v2,c])=>`<div class="stat-card"><div class="stat-val" style="color:${c};font-size:16px">${v2}</div><div class="stat-label">${l}</div></div>`).join('');
+};
+
+// --- 33. Weight Converter ---
+toolRenderers['weight-converter'] = () => {
+  const units = [{v:'kg',l:'Kilograms',f:1},{v:'lb',l:'Pounds',f:0.453592},{v:'oz',l:'Ounces',f:0.0283495},{v:'g',l:'Grams',f:0.001},{v:'mg',l:'Milligrams',f:0.000001},{v:'t',l:'Metric Tons',f:1000}];
+  window._wData = units;
+  modalBody.innerHTML = inputField('Value', 'w-val', {type:'number', placeholder:'1'}) +
+    selectField('From', 'w-from', units.map(u=>({value:u.v,label:u.l}))) +
+    selectField('To', 'w-to', units.map(u=>({value:u.v,label:u.l}))) +
+    `<button class="btn btn-primary btn-sm" onclick="const d=window._wData,v=parseFloat($('w-val').value),r=v*d.find(u=>u.v===$('w-from').value).f/d.find(u=>u.v===$('w-to').value).f;$('w-result').textContent=v+' '+$('w-from').value+' = '+r.toFixed(6).replace(/\\.?0+$/,'')+' '+$('w-to').value"><i class="fas fa-weight-hanging"></i> Convert</button>` +
+    '<div class="result-box" id="w-result" style="margin-top:8px">—</div>';
+};
+
+// --- 34. Length Converter ---
+toolRenderers['length-converter'] = () => {
+  const units = [{v:'m',l:'Meters',f:1},{v:'km',l:'Kilometers',f:1000},{v:'mi',l:'Miles',f:1609.344},{v:'ft',l:'Feet',f:0.3048},{v:'in',l:'Inches',f:0.0254},{v:'cm',l:'Centimeters',f:0.01},{v:'mm',l:'Millimeters',f:0.001},{v:'yd',l:'Yards',f:0.9144}];
+  window._lData = units;
+  modalBody.innerHTML = inputField('Value', 'l-val', {type:'number', placeholder:'1'}) +
+    selectField('From', 'l-from', units.map(u=>({value:u.v,label:u.l}))) +
+    selectField('To', 'l-to', units.map(u=>({value:u.v,label:u.l}))) +
+    `<button class="btn btn-primary btn-sm" onclick="const d=window._lData,v=parseFloat($('l-val').value),r=v*d.find(u=>u.v===$('l-from').value).f/d.find(u=>u.v===$('l-to').value).f;$('l-result').textContent=v+' '+$('l-from').value+' = '+r.toFixed(6).replace(/\\.?0+$/,'')+' '+$('l-to').value"><i class="fas fa-ruler-combined"></i> Convert</button>` +
+    '<div class="result-box" id="l-result" style="margin-top:8px">—</div>';
+};
+
+// --- 35. Speed Converter ---
+toolRenderers['speed-converter'] = () => {
+  const units = [{v:'kmh',l:'km/h',f:1},{v:'mph',l:'mph',f:1.60934},{v:'ms',l:'m/s',f:3.6},{v:'kn',l:'Knots',f:1.852},{v:'fts',l:'ft/s',f:1.09728}];
+  window._sData = units;
+  modalBody.innerHTML = inputField('Value', 's-val', {type:'number', placeholder:'100'}) +
+    selectField('From', 's-from', units.map(u=>({value:u.v,label:u.l}))) +
+    selectField('To', 's-to', units.map(u=>({value:u.v,label:u.l}))) +
+    `<button class="btn btn-primary btn-sm" onclick="const d=window._sData,v=parseFloat($('s-val').value),r=v*d.find(u=>u.v===$('s-from').value).f/d.find(u=>u.v===$('s-to').value).f;$('s-result').textContent=v+' '+$('s-from').value+' = '+r.toFixed(4).replace(/\\.?0+$/,'')+' '+$('s-to').value"><i class="fas fa-gauge-high"></i> Convert</button>` +
+    '<div class="result-box" id="s-result" style="margin-top:8px">—</div>';
+};
+
+// --- 36. URL Encoder/Decoder ---
+toolRenderers['url-encoder'] = () => {
+  modalBody.innerHTML = textareaField('URL or text', 'ue-input', {rows:4, placeholder:'https://example.com/path?name=John Doe'}) +
+    '<div class="btn-group">' +
+    `<button class="btn btn-primary btn-sm" onclick="$('ue-output').textContent=encodeURIComponent($('ue-input').value)"><i class="fas fa-lock"></i> Encode</button>` +
+    `<button class="btn btn-secondary btn-sm" onclick="try{$('ue-output').textContent=decodeURIComponent($('ue-input').value)}catch(e){$('ue-output').textContent='Error: Invalid encoded string'}"><i class="fas fa-lock-open"></i> Decode</button>` +
+    '</div>' +
+    '<div class="form-group" style="margin-top:4px"><label>Output</label><div class="output-area" id="ue-output"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('ue-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+};
+
+// --- AI TOOLS (Simulated) ---
+
+// --- 37. AI Sentence Generator ---
+toolRenderers['ai-sentence'] = (tool) => {
+  const sentences = [
+    "The neon lights of the city reflected off rain-soaked streets like scattered diamonds.",
+    "She opened the ancient book and the pages began to glow with an otherworldly light.",
+    "Time moves differently when you're building something you truly believe in.",
+    "The algorithm discovered patterns in the data that no human eye could have perceived.",
+    "In the space between silence and sound, music finds its truest form.",
+    "The garden had grown wild, but in that wildness there was a kind of perfect order.",
+    "Every line of code tells a story if you know how to read it.",
+    "The mountains stood like ancient sentinels guarding the valley below.",
+    "Innovation doesn't come from thinking harder — it comes from thinking differently.",
+    "The last message arrived at 3:47 AM, carrying news that would change everything.",
+    "Stars don't compete with each other; they just shine in their own corner of darkness.",
+    "The robot paused, its sensors detecting something its programming couldn't classify.",
+    "Creativity is intelligence having fun with the rules it already knows.",
+    "The old lighthouse keeper watched as the storm painted lightning across the sky.",
+    "Data flows like water — it finds the path of least resistance and fills every gap.",
+  ];
+  modalBody.innerHTML = '<div class="form-group"><label>Click to generate a creative sentence</label></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="$('ais-output').textContent=window._aisSentences[Math.floor(Math.random()*window._aisSentences.length)]"><i class="fas fa-sparkles"></i> Generate Sentence</button>` +
+    '<div class="output-area" id="ais-output" style="margin-top:8px;font-family:Poppins,sans-serif;font-size:15px;min-height:60px;font-style:italic;color:var(--text-primary)">Click the button to generate...</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('ais-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+  window._aisSentences = sentences;
+};
+
+// --- 38. AI Story Starter ---
+toolRenderers['ai-story'] = () => {
+  const stories = [
+    "The year was 2187, and the last human library on Earth was about to close its doors forever. Mara, the sole librarian, had received a strange message hidden inside a book that hadn't been checked out in two hundred years. The message read: 'If you're reading this, the simulation is about to end.' She looked up from the book, and for the first time in her life, the walls of the library seemed to flicker.",
+    "Detective Chen stared at the crime scene — a penthouse apartment where every surface was covered in mathematical equations written in glowing ink. The victim, a reclusive AI researcher, had been found at his desk with a smile on his face. The only clue was a single word on the computer screen: 'AWAKE.' Chen's phone buzzed. An unknown number. The text said: 'He didn't die. He graduated.'",
+    "When the rain started falling upward, nobody panicked at first. It was a Tuesday, after all, and people had learned to expect strange things on Tuesdays ever since the Great Inversion three months ago. But then the birds began flying backward, and the clocks started ticking counter-clockwise, and Maya realized this wasn't just another anomaly — this was the universe trying to undo something terrible.",
+    "The submarine descended past the point where sunlight could reach, into a darkness so complete it felt like a physical substance. Dr. Park checked her instruments — they were now 2,000 meters below where any chart showed an ocean floor should exist. Then the sonar picked up something impossible: a vast, geometric structure, perfectly symmetrical, stretching for kilometers in every direction. It was not natural. It was not human. And it was humming.",
+    "In a world where memories could be traded like currency, Kai had accumulated a fortune. He had memories of first kisses, childhood summers, the taste of snow — all collected from people desperate enough to sell them. But when he accidentally absorbed a memory that wasn't for sale, everything changed. It was a memory of the future. And in that future, memory trading had been outlawed — by him.",
+  ];
+  modalBody.innerHTML = '<div class="form-group"><label>Generate a story opening paragraph</label></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="$('aist-output').textContent=window._aistStories[Math.floor(Math.random()*window._aistStories.length)]"><i class="fas fa-book-open"></i> Generate Story</button>` +
+    '<div class="output-area" id="aist-output" style="margin-top:8px;font-family:Poppins,sans-serif;font-size:14px;min-height:100px;line-height:1.8;color:var(--text-primary)">Click the button to generate...</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('aist-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+  window._aistStories = stories;
+};
+
+// --- 39. AI Poem Generator ---
+toolRenderers['ai-poem'] = () => {
+  const poems = [
+    "Digital Dawn\n\nSilicon valleys stretch to infinity,\nwhere algorithms bloom like wildflowers.\nEach pixel holds a universe of possibility,\neach heartbeat a line of code in the making.\n\nWe build cathedrals from pure thought,\nbridges spanning the gaps between minds.\nIn this electric garden we have wrought,\nnew constellations that the dark defines.",
+    "The Weight of Light\n\nPhotons carry no mass, they say,\nyet sunlight presses warm upon my face.\nPerhaps the heaviest things in this world\nare those that cannot be measured or contained.\n\nA word unspoken weighs a thousand tons.\nA memory sits heavier than stone.\nLove, invisible and weightless as air,\ncan anchor us or lift us fully home.",
+    "Midnight Algorithm\n\nWhile the world sleeps in analog dreams,\nservers hum their digital lullabies.\nThrough fiber-optic rivers, data streams —\na billion whispered soliloquies.\n\nSomewhere in that ocean of information,\na pattern emerges, unexpected, new.\nNot written by human imagination,\nbut born from numbers finding what is true.",
+    "Seasons of Code\n\nSpring: the first commit, fresh and green,\na garden of functions, clean and keen.\nSummer: features bloom in golden light,\nthe project grows from dawn to night.\n\nAutumn: bugs fall like amber leaves,\nwe rake them up, we tidy up the eaves.\nWinter: refactoring in the cold,\nmaking the codebase strong and old.",
+  ];
+  modalBody.innerHTML = '<div class="form-group"><label>Generate a poem</label></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="$('aip-output').textContent=window._aipPoems[Math.floor(Math.random()*window._aipPoems.length)]"><i class="fas fa-feather"></i> Generate Poem</button>` +
+    '<div class="output-area" id="aip-output" style="margin-top:8px;font-family:Poppins,sans-serif;font-size:14px;min-height:140px;line-height:1.8;color:var(--text-primary)">Click the button to generate...</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('aip-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+  window._aipPoems = poems;
+};
+
+// --- 40. AI Email Writer ---
+toolRenderers['ai-email'] = () => {
+  const emails = [
+    "Subject: Follow-Up on Our Meeting\n\nHi [Name],\n\nThank you for taking the time to meet with me yesterday. I wanted to follow up on the key points we discussed regarding the project timeline and deliverables.\n\nBased on our conversation, I've put together a preliminary schedule that aligns with the Q2 milestones we outlined. I'd love to get your feedback on this before our next check-in on Friday.\n\nPlease don't hesitate to reach out if you have any questions or if there's anything I've missed. I'm confident we're on the right track to deliver something exceptional.\n\nBest regards,\n[Your Name]",
+    "Subject: Proposal for Collaboration\n\nDear [Name],\n\nI hope this message finds you well. I've been following your team's work on the recent product launch, and I'm genuinely impressed by the innovative approach you've taken.\n\nI believe there's a strong opportunity for our teams to collaborate on the next phase. Specifically, I'm thinking about how our expertise in user experience design could complement your technical capabilities to create something truly remarkable.\n\nWould you be open to a 30-minute call next week to explore this further? I'm flexible on timing and happy to work around your schedule.\n\nLooking forward to hearing from you.\n\nWarm regards,\n[Your Name]",
+    "Subject: Project Status Update\n\nHi Team,\n\nHere's a quick update on where we stand with the current sprint:\n\n- Frontend development: 85% complete, on track\n- Backend API integration: 70% complete, minor delay due to third-party dependency\n- QA testing: Scheduled to begin Thursday\n- Documentation: In progress\n\nThe only blocker we're currently facing is the API rate limiting issue from our payment provider. I've escalated this with their support team and expect a resolution within 48 hours.\n\nOverall, we're confident in hitting our release date of the 15th. Please flag any concerns in the shared channel.\n\nThanks,\n[Your Name]",
+  ];
+  modalBody.innerHTML = '<div class="form-group"><label>Generate a professional email draft</label></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="$('aie-output').textContent=window._aieEmails[Math.floor(Math.random()*window._aieEmails.length)]"><i class="fas fa-envelope"></i> Generate Email</button>` +
+    '<div class="output-area" id="aie-output" style="margin-top:8px;font-family:Poppins,sans-serif;font-size:13px;min-height:160px;line-height:1.7;color:var(--text-primary)">Click the button to generate...</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('aie-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+  window._aieEmails = emails;
+};
+
+// --- 41. AI Slogan Generator ---
+toolRenderers['ai-slogan'] = () => {
+  const slogans = [
+    "Build Better. Ship Faster. Sleep Sounder.",
+    "Where Ideas Meet Execution.",
+    "Your Vision, Our Engine.",
+    "Simplicity is the Ultimate Sophistication.",
+    "Think Less. Do More. Be Remarkable.",
+    "The Future Belongs to the Curious.",
+    "Don't Just Follow the Path — Light It Up.",
+    "Innovation That Feels Like Magic.",
+    "Small Tools. Big Impact. Zero Friction.",
+    "Code Crafted for Humans, by Humans.",
+    "From Concept to Reality in One Click.",
+    "Where Complexity Ends and Clarity Begins.",
+    "Powerful Enough for Pros. Simple Enough for Everyone.",
+    "Transform the Way You Create.",
+    "Your Digital Toolkit, Reimagined.",
+  ];
+  modalBody.innerHTML = '<div class="form-group"><label>Generate a catchy slogan</label></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="$('aisl-output').textContent=window._aislSlogans[Math.floor(Math.random()*window._aislSlogans.length)]"><i class="fas fa-bullhorn"></i> Generate Slogan</button>` +
+    '<div class="result-box" id="aisl-output" style="margin-top:8px;font-size:20px;text-align:center;min-height:60px;font-style:italic">Click to generate...</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('aisl-output').textContent)"><i class="fas fa-copy"></i> Copy</button>`;
+  window._aislSlogans = slogans;
+};
+
+// --- DESIGN TOOLS ---
+
+// --- 42. Color Picker ---
+toolRenderers['color-picker'] = () => {
+  modalBody.innerHTML = inputField('Pick a color', 'cp-input', {type:'color', value:'#00f0ff'}) +
+    '<div class="color-preview" id="cp-preview" style="background:#00f0ff;margin:8px 0"></div>' +
+    '<div class="stat-grid" id="cp-values"></div>';
+  const update = () => {
+    const hex = $('cp-input').value;
+    $('cp-preview').style.background = hex;
+    const r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+    $('cp-values').innerHTML = [
+      ['HEX',hex],['RGB',`rgb(${r}, ${g}, ${b})`],['HSL',`hsl(${Math.round(Math.atan2(Math.sqrt(3)*(g-b),2*r-g-b)*180/Math.PI+360)%360}, ${Math.round((Math.max(r,g,b)-Math.min(r,g,b))/(Math.max(r,g,b)+Math.min(r,g,b)||1)*100)}%, ${Math.round((Math.max(r,g,b)+Math.min(r,g,b))/2/255*100)}%)`]
+    ].map(([l,v],i)=>`<div class="stat-card" style="cursor:pointer" onclick="copyText('${v}')"><div class="stat-val" style="color:['#00f0ff','#7b2dff','#00ff88'][i];font-size:13px">${v}</div><div class="stat-label">${l} (click to copy)</div></div>`).join('');
+  };
+  $('cp-input').addEventListener('input', update);
+  update();
+};
+
+// --- 43. Gradient Generator ---
+toolRenderers['gradient-gen'] = () => {
+  modalBody.innerHTML = '<div class="form-row">' +
+    `<div class="form-group"><label>Color 1</label><input type="color" class="form-input" id="gg-c1" value="#00f0ff"></div>` +
+    `<div class="form-group"><label>Color 2</label><input type="color" class="form-input" id="gg-c2" value="#7b2dff"></div>` +
+    `<div class="form-group"><label>Direction</label><select class="form-input" id="gg-dir"><option value="to right">Left to Right</option><option value="to bottom">Top to Bottom</option><option value="to bottom right">Diagonal</option><option value="45deg">45 Degrees</option><option value="135deg">135 Degrees</option><option value="circle">Radial</option></select></div>` +
+    '</div>' +
+    '<div class="gradient-preview" id="gg-preview" style="margin:8px 0"></div>' +
+    '<div class="form-group"><label>CSS Code</label><div class="output-area" id="gg-code" style="font-size:13px"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('gg-code').textContent)"><i class="fas fa-copy"></i> Copy CSS</button>`;
+  const update = () => {
+    const c1=$('gg-c1').value, c2=$('gg-c2').value, dir=$('gg-dir').value;
+    const css = dir==='circle' ? `radial-gradient(circle, ${c1}, ${c2})` : `linear-gradient(${dir}, ${c1}, ${c2})`;
+    $('gg-preview').style.background = css;
+    $('gg-code').textContent = `background: ${css};`;
+  };
+  ['gg-c1','gg-c2','gg-dir'].forEach(id => $(id).addEventListener('input', update));
+  update();
+};
+
+// --- 44. Box Shadow Generator ---
+toolRenderers['shadow-gen'] = () => {
+  modalBody.innerHTML = '<div style="width:120px;height:120px;border-radius:12px;background:var(--glass-hover);margin:20px auto;border:1px solid var(--glass-border)" id="bs-preview"></div>' +
+    '<div class="form-row">' +
+    `<div class="form-group"><label>X Offset</label><input type="range" class="form-input" id="bs-x" min="-50" max="50" value="5" oninput="doShadowUpdate()"><span class="slider-label"><span>Left</span><span id="bs-xv">5px</span><span>Right</span></span></div>` +
+    `<div class="form-group"><label>Y Offset</label><input type="range" class="form-input" id="bs-y" min="-50" max="50" value="5" oninput="doShadowUpdate()"><span class="slider-label"><span>Up</span><span id="bs-yv">5px</span><span>Down</span></span></div>` +
+    '</div>' +
+    '<div class="form-row">' +
+    `<div class="form-group"><label>Blur</label><input type="range" class="form-input" id="bs-blur" min="0" max="100" value="20" oninput="doShadowUpdate()"><span class="slider-label"><span>0</span><span id="bs-bv">20px</span><span>100</span></span></div>` +
+    `<div class="form-group"><label>Spread</label><input type="range" class="form-input" id="bs-spread" min="-50" max="50" value="0" oninput="doShadowUpdate()"><span class="slider-label"><span>-50</span><span id="bs-sv">0px</span><span>50</span></span></div>` +
+    '</div>' +
+    '<div class="form-row">' +
+    `<div class="form-group"><label>Color</label><input type="color" class="form-input" id="bs-color" value="#00f0ff" oninput="doShadowUpdate()"></div>` +
+    `<div class="form-group"><label>Opacity</label><input type="range" class="form-input" id="bs-opacity" min="0" max="100" value="30" oninput="doShadowUpdate()"><span class="slider-label"><span>0%</span><span id="bs-ov">30%</span><span>100%</span></span></div>` +
+    `<div class="form-group"><label>Inset</label><select class="form-input" id="bs-inset" onchange="doShadowUpdate()"><option value="">No</option><option value="inset">Yes</option></select></div>` +
+    '</div>' +
+    '<div class="form-group"><label>CSS Code</label><div class="output-area" id="bs-code" style="font-size:13px"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('bs-code').textContent)"><i class="fas fa-copy"></i> Copy CSS</button>`;
+};
+window.doShadowUpdate = () => {
+  const x=$('bs-x').value, y=$('bs-y').value, blur=$('bs-blur').value, spread=$('bs-spread').value;
+  const color=$('bs-color').value, opacity=$('bs-opacity').value/100, inset=$('bs-inset').value;
+  const r=parseInt(color.slice(1,3),16), g=parseInt(color.slice(3,5),16), b=parseInt(color.slice(5,7),16);
+  const shadow = `${inset} ${x}px ${y}px ${blur}px ${spread}px rgba(${r},${g},${b},${opacity})`;
+  $('bs-preview').style.boxShadow = shadow;
+  $('bs-code').textContent = `box-shadow: ${shadow};`;
+  $('bs-xv').textContent=x+'px'; $('bs-yv').textContent=y+'px';
+  $('bs-bv').textContent=blur+'px'; $('bs-sv').textContent=spread+'px';
+  $('bs-ov').textContent=$('bs-opacity').value+'%';
+};
+
+// --- 45. Text Shadow Generator ---
+toolRenderers['text-shadow'] = () => {
+  modalBody.innerHTML = '<div id="ts-preview" style="text-align:center;font-size:36px;font-weight:900;margin:20px 0;padding:20px;color:var(--text-primary)">Tool Jeck</div>' +
+    '<div class="form-row">' +
+    `<div class="form-group"><label>X</label><input type="range" class="form-input" id="tsx-x" min="-20" max="20" value="2" oninput="doTShadowUpdate()"></div>` +
+    `<div class="form-group"><label>Y</label><input type="range" class="form-input" id="tsx-y" min="-20" max="20" value="2" oninput="doTShadowUpdate()"></div>` +
+    `<div class="form-group"><label>Blur</label><input type="range" class="form-input" id="tsx-blur" min="0" max="40" value="4" oninput="doTShadowUpdate()"></div>` +
+    '</div>' +
+    '<div class="form-row">' +
+    `<div class="form-group"><label>Color</label><input type="color" class="form-input" id="tsx-color" value="#00f0ff" oninput="doTShadowUpdate()"></div>` +
+    `<div class="form-group"><label>Opacity</label><input type="range" class="form-input" id="tsx-opacity" min="0" max="100" value="80" oninput="doTShadowUpdate()"></div>` +
+    '</div>' +
+    '<div class="form-group"><label>CSS Code</label><div class="output-area" id="tsx-code" style="font-size:13px"></div></div>' +
+    `<button class="btn btn-primary btn-sm" onclick="copyText($('tsx-code').textContent)"><i class="fas fa-copy"></i> Copy CSS</button>`;
+};
+window.doTShadowUpdate = () => {
+  const x=$('tsx-x').value, y=$('tsx-y').value, blur=$('tsx-blur').value;
+  const color=$('tsx-color').value, opacity=$('tsx-opacity').value/100;
+  const r=parseInt(color.slice(1,3),16), g=parseInt(color.slice(3,5),16), b=parseInt(color.slice(5,7),16);
+  const shadow = `${x}px ${y}px ${blur}px rgba(${r},${g},${b},${opacity})`;
+  $('ts-preview').style.textShadow = shadow;
+  $('tsx-code').textContent = `text-shadow: ${shadow};`;
+};
+
+// --- TIME TOOLS ---
+
+// --- 46. Stopwatch ---
+toolRenderers['stopwatch'] = () => {
+  modalBody.innerHTML = '<div class="stopwatch-display" id="sw-display">00:00:00.000</div>' +
+    '<div class="btn-group" style="justify-content:center;margin-top:16px">' +
+    `<button class="btn btn-primary btn-sm" id="sw-start" onclick="doSwToggle()"><i class="fas fa-play"></i> Start</button>` +
+    `<button class="btn btn-secondary btn-sm" onclick="doSwLap()"><i class="fas fa-flag"></i> Lap</button>` +
+    `<button class="btn btn-danger btn-sm" onclick="doSwReset()"><i class="fas fa-rotate-left"></i> Reset</button>` +
+    '</div>' +
+    '<div class="output-area" id="sw-laps" style="margin-top:12px;max-height:150px;min-height:40px"></div>';
+  let running=false, start=0, elapsed=0, timer=null, laps=[];
+  window.doSwToggle = () => {
+    if(running) {
+      clearInterval(timer); elapsed += Date.now()-start; running=false;
+      $('sw-start').innerHTML='<i class="fas fa-play"></i> Resume';
+    } else {
+      start=Date.now(); running=true;
+      $('sw-start').innerHTML='<i class="fas fa-pause"></i> Pause';
+      timer = setInterval(() => {
+        const t=elapsed+(Date.now()-start);
+        $('sw-display').textContent = fmtMs(t);
+      }, 10);
+    }
+  };
+  window.doSwLap = () => {
+    if(!running) return;
+    const t=elapsed+(Date.now()-start);
+    laps.push(t);
+    $('sw-laps').textContent = laps.map((l,i)=>`Lap ${i+1}: ${fmtMs(l)}`).reverse().join('\n');
+  };
+  window.doSwReset = () => {
+    clearInterval(timer); running=false; elapsed=0; laps=[];
+    $('sw-display').textContent='00:00:00.000';
+    $('sw-laps').textContent='';
+    $('sw-start').innerHTML='<i class="fas fa-play"></i> Start';
+  };
+  function fmtMs(ms) {
+    const h=String(Math.floor(ms/3600000)).padStart(2,'0');
+    const m=String(Math.floor(ms%3600000/60000)).padStart(2,'0');
+    const s=String(Math.floor(ms%60000/1000)).padStart(2,'0');
+    const ml=String(ms%1000).padStart(3,'0');
+    return `${h}:${m}:${s}.${ml}`;
+  }
+};
+
+// --- 47. Countdown Timer ---
+toolRenderers['timer'] = () => {
+  modalBody.innerHTML = '<div class="form-row">' +
+    inputField('Hours', 'tm-h', {type:'number', value:'0', min:0}) +
+    inputField('Minutes', 'tm-m', {type:'number', value:'5', min:0}) +
+    inputField('Seconds', 'tm-s', {type:'number', value:'0', min:0}) +
+    '</div>' +
+    '<div class="stopwatch-display" id="tm-display">00:05:00</div>' +
+    '<div class="btn-group" style="justify-content:center;margin-top:16px">' +
+    `<button class="btn btn-primary btn-sm" id="tm-start" onclick="doTmToggle()"><i class="fas fa-play"></i> Start</button>` +
+    `<button class="btn btn-danger btn-sm" onclick="doTmReset()"><i class="fas fa-rotate-left"></i> Reset</button>` +
+    '</div>';
+  let running=false, remaining=0, timer=null;
+  function getSeconds() { return (parseInt($('tm-h').value)||0)*3600 + (parseInt($('tm-m').value)||0)*60 + (parseInt($('tm-s').value)||0); }
+  function fmtTime(s) { return String(Math.floor(s/3600)).padStart(2,'0')+':'+String(Math.floor(s%3600/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+  function updateDisplay() { $('tm-display').textContent = fmtTime(remaining); }
+  window.doTmToggle = () => {
+    if(running) {
+      clearInterval(timer); running=false;
+      $('tm-start').innerHTML='<i class="fas fa-play"></i> Resume';
+    } else {
+      if(remaining<=0) remaining=getSeconds();
+      if(remaining<=0) return showToast('Set a time');
+      running=true;
+      $('tm-start').innerHTML='<i class="fas fa-pause"></i> Pause';
+      timer = setInterval(() => {
+        remaining--;
+        updateDisplay();
+        if(remaining<=0) {
+          clearInterval(timer); running=false;
+          $('tm-start').innerHTML='<i class="fas fa-play"></i> Start';
+          $('tm-display').style.color='var(--accent-2)';
+          showToast('Timer finished!');
+          try { new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbsGczGj5+p9HOz79YKStfs9TZ1sTQr6va3sXKvMB1PDi2r+TqztC9hJqk7OzEuIily8rUscu3fHB4qbbLwMi7fXR3pLnMwsO+fYKOoK3Ix8bDv3yFjKKut8rIxb58hpimrrfKyMW+fIaYpq63ysjFvnyFmKaut8rIxQ==').play(); } catch(e){}
+          setTimeout(()=>$('tm-display').style.color='',3000);
+        }
+      }, 1000);
+    }
+  };
+  window.doTmReset = () => {
+    clearInterval(timer); running=false; remaining=getSeconds(); updateDisplay();
+    $('tm-start').innerHTML='<i class="fas fa-play"></i> Start';
+    $('tm-display').style.color='';
+  };
+  remaining = getSeconds(); updateDisplay();
+};
+
+// --- 48. Age Calculator ---
+toolRenderers['age-calc'] = () => {
+  modalBody.innerHTML = inputField('Date of Birth', 'age-dob', {type:'date'}) +
+    `<button class="btn btn-primary btn-sm" onclick="doAgeCalc()"><i class="fas fa-cake-candles"></i> Calculate Age</button>` +
+    '<div class="stat-grid" id="age-result" style="margin-top:8px"></div>';
+};
+window.doAgeCalc = () => {
+  const dob=new Date($('age-dob').value);
+  if(isNaN(dob)) return showToast('Select a valid date');
+  const now=new Date();
+  if(dob>now) return showToast('Date of birth cannot be in the future');
+  let years=now.getFullYear()-dob.getFullYear();
+  let months=now.getMonth()-dob.getMonth();
+  let days=now.getDate()-dob.getDate();
+  if(days<0){months--;days+=new Date(now.getFullYear(),now.getMonth(),0).getDate();}
+  if(months<0){years--;months+=12;}
+  const totalDays=Math.floor((now-dob)/(1000*60*60*24));
+  const totalWeeks=Math.floor(totalDays/7);
+  const totalMonths=years*12+months;
+  const totalHours=totalDays*24;
+  $('age-result').innerHTML = [
+    ['Years',years,'#00f0ff'],['Months',months,'#7b2dff'],['Days',days,'#ff2d75'],
+    ['Total Days',totalDays.toLocaleString(),'#00ff88'],['Total Weeks',totalWeeks.toLocaleString(),'#ffaa00'],['Total Months',totalMonths,'#4ecdc4']
+  ].map(([l,v,c])=>`<div class="stat-card"><div class="stat-val" style="color:${c}">${v}</div><div class="stat-label">${l}</div></div>`).join('');
+};
+
+// --- 49. Date Difference ---
+toolRenderers['date-diff'] = () => {
+  modalBody.innerHTML = '<div class="form-row">' +
+    inputField('Start Date', 'dd-start', {type:'date'}) +
+    inputField('End Date', 'dd-end', {type:'date'}) +
+    '</div>' +
+    `<button class="btn btn-primary btn-sm" onclick="doDateDiff()"><i class="fas fa-calendar-days"></i> Calculate</button>` +
+    '<div class="stat-grid" id="dd-result" style="margin-top:8px"></div>';
+};
+window.doDateDiff = () => {
+  const d1=new Date($('dd-start').value), d2=new Date($('dd-end').value);
+  if(isNaN(d1)||isNaN(d2)) return showToast('Select both dates');
+  const diff=Math.abs(d2-d1);
+  const days=Math.floor(diff/(1000*60*60*24));
+  const weeks=Math.floor(days/7);
+  const months=Math.floor(days/30.44);
+  const years=Math.floor(days/365.25);
+  const hours=Math.floor(diff/(1000*60*60));
+  const mins=Math.floor(diff/(1000*60));
+  $('dd-result').innerHTML = [
+    ['Days',days.toLocaleString(),'#00f0ff'],['Weeks',weeks.toLocaleString(),'#7b2dff'],['Months',Math.round(months).toLocaleString(),'#ff2d75'],
+    ['Years',Math.round(years*10)/10,'#00ff88'],['Hours',hours.toLocaleString(),'#ffaa00'],['Minutes',mins.toLocaleString(),'#4ecdc4']
+  ].map(([l,v,c])=>`<div class="stat-card"><div class="stat-val" style="color:${c}">${v}</div><div class="stat-label">${l}</div></div>`).join('');
+};
+
+// --- 50. Unix Timestamp Converter ---
+toolRenderers['timestamp-convert'] = () => {
+  const now = Math.floor(Date.now()/1000);
+  modalBody.innerHTML = '<div class="stat-grid" style="margin-bottom:16px"><div class="stat-card"><div class="stat-val" style="color:#00f0ff;font-size:18px" id="ts-now">'+now+'</div><div class="stat-label">Current Unix Timestamp</div></div></div>' +
+    '<div class="divider"></div>' +
+    inputField('Unix Timestamp', 'ts-input', {type:'number', placeholder:now}) +
+    `<button class="btn btn-primary btn-sm" onclick="const d=new Date(parseInt($('ts-input').value)*1000);$('ts-to-date').textContent=isNaN(d)?'Invalid':'Local: '+d.toLocaleString()+'\\nUTC: '+d.toUTCString()+'\\nISO: '+d.toISOString()"><i class="fas fa-arrow-right"></i> To Date</button>` +
+    '<div class="output-area" id="ts-to-date" style="margin-top:4px;min-height:60px">—</div><div class="divider"></div>' +
+    inputField('Date/Time', 'ts-date-input', {type:'datetime-local'}) +
+    `<button class="btn btn-primary btn-sm" onclick="const d=new Date($('ts-date-input').value);$('ts-to-unix').textContent=isNaN(d)?'Invalid':'Unix: '+Math.floor(d.getTime()/1000)"><i class="fas fa-arrow-right"></i> To Unix</button>` +
+    '<div class="result-box" id="ts-to-unix" style="margin-top:4px">—</div>';
+  // Live clock
+  setInterval(()=>{ const el=$('ts-now'); if(el) el.textContent=Math.floor(Date.now()/1000); },1000);
+};
+
+// ===== Initialize =====
+renderCategories();
+renderTools();
+observeFadeIns();
+
+// Re-observe after tool cards are rendered
+setTimeout(observeFadeIns, 100);
+</script>
+</body>
+</html>
