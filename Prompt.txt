@@ -1,0 +1,88 @@
+Create a fully responsive, modern multi-tool website named Tool Jeck using only HTML, CSS, and vanilla JavaScript (no frameworks, no libraries except optional lightweight icons like Font Awesome).
+
+🎯 Goal:
+
+Build a premium-looking, high-performance frontend-only SaaS-style website that includes 50+ useful tools, with a strong focus on UI/UX, speed, and interactivity.
+
+🎨 Design System (Very Important):
+Dark gradient theme:
+Background: black → deep purple → blue gradient
+Glassmorphism cards:
+backdrop-filter: blur
+semi-transparent backgrounds
+Neon glow hover effects on buttons and cards
+Smooth transitions (CSS animations)
+Rounded corners (12px–20px)
+Typography:
+Use Google Fonts (Poppins or Inter)
+Fully responsive:
+Mobile-first design
+Grid + Flexbox layout
+🧱 Website Structure:
+1. 🏠 Homepage:
+Hero section:
+Title: “Tool Jeck – 50+ Free Online Tools”
+Subtitle: “All-in-one tools for productivity, coding, and AI”
+CTA button: “Explore Tools”
+Search bar (JavaScript filtering tools live)
+Category grid (cards with icons)
+Featured tools section
+Footer (simple links + copyright)
+2. 📂 Tools Section:
+Display tools in a grid layout
+Each tool as a card:
+Icon
+Name
+Short description
+“Open Tool” button
+3. 📄 Tool Pages (Important):
+
+Each tool should open in a modal or separate section (no backend routing) using JavaScript.
+
+🛠️ Implement 50 Tools (Frontend Logic Only)
+✅ Easy Functional Tools (must actually work):
+Word Counter
+Character Counter
+Case Converter
+Password Generator
+QR Code Generator (use JS library allowed)
+Base64 Encoder/Decoder
+JSON Formatter
+URL Encoder/Decoder
+Color Picker
+Random Number Generator
+BMI Calculator
+Age Calculator
+Unit Converter
+Stopwatch
+Timer
+⚠️ AI Tools (Frontend Simulation):
+
+Since no backend:
+
+Fake AI output using:
+Predefined responses
+Random generated text
+👉 (label clearly as demo or simulated)
+⚡ JavaScript Features:
+Live search filter for tools
+Modal open/close system
+Copy-to-clipboard buttons
+Dynamic tool rendering (use JS arrays/objects)
+Dark UI animations on hover
+Input validation
+✨ Advanced UI Effects:
+Smooth scrolling
+Fade-in animations on scroll
+Glow effect on active cards
+Loading animation (fake loader)
+📁 Code Structure:
+index.html
+style.css
+script.js
+
+Keep code:
+
+Clean
+Well-commented
+Modular (separate functions for each tool)
